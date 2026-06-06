@@ -93,9 +93,10 @@ src/
 
 ## Equipo de Desarrollo
 
-- Alejandro XXXXX
-- Integrante 2
-- Integrante 3
+- Lopez Enrique Alejandro
+- Almada Axel
+- Giorgi Lucas
+- Rios Leonardo
 
 ## Estado del Proyecto
 
