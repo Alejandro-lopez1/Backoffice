@@ -51,7 +51,7 @@ public class Asistencia {
 
     @Override
     public boolean equals(Object o) {
-        if (this == 0) return true;
+        if (this == o) return true;
         if (!(o instanceof Asistencia)) return false;
         Asistencia a = (Asistencia) o;
         return fecha.equals(a.fecha)&& presente == a.presente;

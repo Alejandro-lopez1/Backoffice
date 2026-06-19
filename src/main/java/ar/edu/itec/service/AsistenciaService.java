@@ -1,6 +1,7 @@
 package ar.edu.itec.service;
 
 import ar.edu.itec.model.Asistencia;
+import java.util.List;
 
 public class AsistenciaService {
 
