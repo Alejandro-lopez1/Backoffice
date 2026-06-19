@@ -19,6 +19,7 @@ public class NotaRepository {
     }
 
     public Optional<Nota> buscarPorId(Long id) {
+        // Búsqueda lineal sobre la lista en memoria.
         for (Nota nota : notas) {
             if (nota.getId() != null && nota.getId().equals(id)) {
                 return Optional.of(nota);
@@ -30,6 +31,7 @@ public class NotaRepository {
     public List<Nota> buscarPorAlumnoId(Long alumnoId) {
         List<Nota> notasDelAlumno = new ArrayList<>();
 
+        // Se arma una nueva lista con las notas que pertenecen al alumno indicado.
         for (Nota nota : notas) {
             if (nota.getAlumnoId() != null && nota.getAlumnoId().equals(alumnoId)) {
                 notasDelAlumno.add(nota);

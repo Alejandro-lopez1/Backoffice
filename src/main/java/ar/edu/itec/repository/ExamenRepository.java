@@ -19,6 +19,7 @@ public class ExamenRepository {
     }
 
     public Optional<Examen> buscarPorId(Long id) {
+        // Búsqueda lineal sobre la lista en memoria.
         for (Examen examen : examenes) {
             if (examen.getId() != null && examen.getId().equals(id)) {
                 return Optional.of(examen);
