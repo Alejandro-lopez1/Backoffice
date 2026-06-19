@@ -1,4 +1,4 @@
-package ar.edu.itec.entity;
+package ar.edu.itec.model;
 
 import java.time.LocalDate;
 

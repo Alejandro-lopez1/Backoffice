@@ -27,6 +27,10 @@ public class HorarioClase {
         this.diaSemana = diaSemana;
     }
 
+    public List<ModuloHorario> getModulos() {
+        return modulos;
+    }
+
     public void setModulos(List<ModuloHorario> modulos) {
         this.modulos = (modulos != null) ? modulos : new ArrayList<>();
     }
