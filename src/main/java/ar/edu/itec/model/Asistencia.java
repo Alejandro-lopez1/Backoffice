@@ -1,37 +1,21 @@
 package ar.edu.itec.model;
 
-import ar.edu.itec.enums.EstadoAsistencia;
-
 import java.time.LocalDate;
 
 public class Asistencia {
 
-    private Long id;
-    private Alumno alumno;
     private LocalDate fecha;
-    private EstadoAsistencia estado;
+    private boolean presente;
 
-    public Asistencia (Long id, Alumno alumno, LocalDate fecha, EstadoAsistencia estado
-    ) { this.id = id;
-        this.alumno = alumno;
+    public Asistencia(LocalDate fecha, boolean presente) {
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha no puede ser null.");
+        }
+        if (fecha.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("No se puede registrar una asistencia con fecha futura: " + fecha);
+        }
         this.fecha = fecha;
-        this.estado = estado;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+        this.presente = presente;
     }
 
     public LocalDate getFecha() {
@@ -39,14 +23,43 @@ public class Asistencia {
     }
 
     public void setFecha(LocalDate fecha) {
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha no puede ser null.");
+        }
+        if (fecha.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("No se puede registrar una asistencia con fecha futura: " + fecha);
+        }
         this.fecha = fecha;
     }
-
-    public EstadoAsistencia getEstado() {
-        return estado;
+    public boolean isPresente() {
+        return presente;
+    }
+    public void setPresente(boolean presente) {
+        this.presente = presente;
     }
 
-    public void setEstado(EstadoAsistencia estado) {
-        this.estado = estado;
+    //Dos asistencias se consideran "la misma" si caen en la misma fecha, independientemente del valor de presente. Esto es lo que AlumnoInscripto debería usar antes de agregar una Asistencia a su lista, para no permitir duplicados en el registro en el mismo día.
+    public boolean esMismaFecha(Asistencia otra) {
+        if (otra == null) return false;
+        return this.fecha.equals(otra.fecha);
     }
-}
+
+    @Override
+    public String toString(){
+        return fecha + " - " + (presente ? "PRESENTE" : "AUSENTE");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == 0) return true;
+        if (!(o instanceof Asistencia)) return false;
+        Asistencia a = (Asistencia) o;
+        return fecha.equals(a.fecha)&& presente == a.presente;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(fecha, presente);
+    }
+
+    }
