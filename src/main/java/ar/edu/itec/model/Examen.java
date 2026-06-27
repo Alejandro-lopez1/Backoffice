@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Examen {
 
     private Long id;
+    private Carrera carrera;
     private String nombre;
     private String descripcion;
     private LocalDate fecha;
@@ -15,16 +16,17 @@ public class Examen {
     public Examen() {
     }
 
-    public Examen(Long id, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+    public Examen(Long id, Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
         setId(id);
+        setCarrera(carrera);
         setNombre(nombre);
         setDescripcion(descripcion);
         setFecha(fecha);
         setTipoEvaluacion(tipoEvaluacion);
     }
 
-    public Examen(String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
-        this(null, nombre, descripcion, fecha, tipoEvaluacion);
+    public Examen(Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+        this(null, carrera, nombre, descripcion, fecha, tipoEvaluacion);
     }
 
     public Long getId() {
@@ -33,6 +35,17 @@ public class Examen {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Carrera getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(Carrera carrera) {
+        if (carrera == null) {
+            throw new IllegalArgumentException("La carrera no puede ser null");
+        }
+        this.carrera = carrera;
     }
 
     public String getNombre() {
@@ -83,6 +96,7 @@ public class Examen {
     public String toString() {
         return "Examen{" +
                 "id=" + id +
+                ", carrera=" + carrera +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha=" + fecha +

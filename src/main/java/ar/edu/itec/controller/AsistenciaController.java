@@ -14,8 +14,8 @@ public class AsistenciaController {
         this.asistenciaService = asistenciaService;
     }
 
-    public AsistenciaAlumno registrarAsistencia(String documentoAlumno, LocalDate fecha, boolean presente) {
-        return asistenciaService.registrarAsistencia(documentoAlumno, fecha, presente);
+    public AsistenciaAlumno registrarAsistencia(String documentoAlumno, boolean presente) {
+        return asistenciaService.registrarAsistencia(documentoAlumno, presente);
     }
 
     public List<AsistenciaAlumno> listarAsistencias() {

@@ -4,11 +4,14 @@ import ar.edu.itec.controller.AsistenciaController;
 import ar.edu.itec.model.AsistenciaAlumno;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class AsistenciaView {
+
+    private static final DateTimeFormatter FECHA_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final AsistenciaController asistenciaController;
     private final Scanner scanner;
@@ -49,9 +52,8 @@ public class AsistenciaView {
         try {
             AsistenciaAlumno asistencia = asistenciaController.registrarAsistencia(
                     pedirTexto("Documento del alumno: "),
-                    pedirFecha("Fecha (AAAA-MM-DD): "),
                     pedirPresente());
-            mostrarMensaje("Asistencia registrada: " + asistencia);
+            mostrarMensaje("Asistencia " + formatearId(asistencia.getId()) + ": " + asistencia.getDocumentoAlumno() + " - " + formatearFecha(asistencia.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -70,9 +72,9 @@ public class AsistenciaView {
             AsistenciaAlumno asistencia = asistenciaController.modificarAsistencia(
                     pedirLong("Id de la asistencia: "),
                     pedirTexto("Documento del alumno: "),
-                    pedirFecha("Fecha (AAAA-MM-DD): "),
+                    pedirFecha("Fecha (dd-MM-aaaa): "),
                     pedirPresente());
-            mostrarMensaje("Asistencia actualizada: " + asistencia);
+            mostrarMensaje("Asistencia " + formatearId(asistencia.getId()) + ": " + asistencia.getDocumentoAlumno() + " - " + formatearFecha(asistencia.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -106,7 +108,7 @@ public class AsistenciaView {
         System.out.print(mensaje);
         String valor = scanner.nextLine().trim();
         try {
-            return LocalDate.parse(valor);
+            return LocalDate.parse(valor, FECHA_FORMATTER);
         } catch (DateTimeParseException e) {
             return null;
         }
@@ -136,6 +138,21 @@ public class AsistenciaView {
             mostrarMensaje("No hay asistencias registradas.");
             return;
         }
-        asistencias.forEach(System.out::println);
+        for (AsistenciaAlumno asistencia : asistencias) {
+            System.out.println("--------------------------------------------------");
+            System.out.println("ID: " + formatearId(asistencia.getId()));
+            System.out.println("Documento alumno: " + asistencia.getDocumentoAlumno());
+            System.out.println("Fecha: " + formatearFecha(asistencia.getFecha()));
+            System.out.println("Estado: " + (asistencia.isPresente() ? "Presente" : "Ausente"));
+        }
+        System.out.println("--------------------------------------------------");
+    }
+
+    private String formatearFecha(LocalDate fecha) {
+        return fecha == null ? "-" : fecha.format(FECHA_FORMATTER);
+    }
+
+    private String formatearId(Long id) {
+        return id == null ? "---" : String.format("%03d", id);
     }
 }

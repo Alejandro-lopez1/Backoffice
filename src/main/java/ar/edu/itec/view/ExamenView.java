@@ -2,14 +2,18 @@ package ar.edu.itec.view;
 
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.enums.TipoEvaluacion;
+import ar.edu.itec.model.Carrera;
 import ar.edu.itec.model.Examen;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ExamenView {
+
+    private static final DateTimeFormatter FECHA_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final ExamenController examenController;
     private final Scanner scanner;
@@ -48,12 +52,15 @@ public class ExamenView {
 
     private void registrarExamen() {
         try {
+            Carrera carrera = seleccionarCarrera();
+            TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.registrarExamen(
+                    carrera,
                     pedirTexto("Nombre: "),
                     pedirTexto("Descripción: "),
-                    pedirFecha("Fecha (AAAA-MM-DD): "),
-                    pedirTipoEvaluacion());
-            mostrarMensaje("Examen registrado: " + examen);
+                    pedirFecha("Fecha (dd-MM-aaaa): "),
+                    tipoEvaluacion);
+            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getCarrera() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -70,13 +77,16 @@ public class ExamenView {
 
     private void modificarExamen() {
         try {
+            Carrera carrera = seleccionarCarrera();
+            TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.modificarExamen(
                     pedirLong("Id del examen: "),
+                    carrera,
                     pedirTexto("Nombre: "),
                     pedirTexto("Descripción: "),
-                    pedirFecha("Fecha (AAAA-MM-DD): "),
-                    pedirTipoEvaluacion());
-            mostrarMensaje("Examen actualizado: " + examen);
+                    pedirFecha("Fecha (dd-MM-aaaa): "),
+                    tipoEvaluacion);
+            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getCarrera() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -110,7 +120,7 @@ public class ExamenView {
         System.out.print(mensaje);
         String valor = scanner.nextLine().trim();
         try {
-            return LocalDate.parse(valor);
+            return LocalDate.parse(valor, FECHA_FORMATTER);
         } catch (DateTimeParseException e) {
             return null;
         }
@@ -139,7 +149,16 @@ public class ExamenView {
             mostrarMensaje("No hay exámenes registrados.");
             return;
         }
-        examenes.forEach(System.out::println);
+        for (Examen examen : examenes) {
+            System.out.println("--------------------------------------------------");
+            System.out.println("ID: " + formatearId(examen.getId()));
+            System.out.println("Carrera: " + examen.getCarrera());
+            System.out.println("Nombre: " + examen.getNombre());
+            System.out.println("Descripcion: " + examen.getDescripcion());
+            System.out.println("Fecha: " + formatearFecha(examen.getFecha()));
+            System.out.println("Tipo: " + formatearTipo(examen.getTipoEvaluacion()));
+        }
+        System.out.println("--------------------------------------------------");
     }
 
     private int leerEnteroConMensaje(String mensaje) {
@@ -149,5 +168,33 @@ public class ExamenView {
         } catch (NumberFormatException e) {
             return -1;
         }
+    }
+
+    private String formatearFecha(LocalDate fecha) {
+        return fecha == null ? "-" : fecha.format(FECHA_FORMATTER);
+    }
+
+    private Carrera seleccionarCarrera() {
+        System.out.println("Carreras disponibles:");
+        List<Carrera> carreras = examenController.listarCarrerasDisponibles();
+        for (Carrera carrera : carreras) {
+            System.out.println(" - " + carrera.getCodigo() + ": " + carrera.getNombre());
+        }
+        return examenController.buscarCarreraPorCodigo(pedirTexto("Código de carrera: "));
+    }
+
+    private String formatearId(Long id) {
+        return id == null ? "---" : String.format("%03d", id);
+    }
+
+    private String formatearTipo(TipoEvaluacion tipoEvaluacion) {
+        if (tipoEvaluacion == null) {
+            return "-";
+        }
+        return switch (tipoEvaluacion) {
+            case PARCIAL -> "Parcial";
+            case RECUPERATORIO -> "Recuperatorio";
+            case FINAL -> "Final";
+        };
     }
 }

@@ -5,6 +5,7 @@ import ar.edu.itec.model.AlumnoCarrera;
 import ar.edu.itec.model.AlumnoInscripto;
 import ar.edu.itec.model.Carrera;
 import ar.edu.itec.model.ComisionMateria;
+import ar.edu.itec.repository.CarreraRepository;
 import ar.edu.itec.repository.AlumnoRepository;
 import ar.edu.itec.service.AlumnoService;
 
@@ -14,10 +15,12 @@ public class AlumnoController {
 
     private final AlumnoService alumnoService;
     private final AlumnoRepository repository;
+    private final CarreraRepository carreraRepository;
 
-    public AlumnoController(AlumnoService alumnoService, AlumnoRepository repository) {
+    public AlumnoController(AlumnoService alumnoService, AlumnoRepository repository, CarreraRepository carreraRepository) {
         this.alumnoService = alumnoService;
         this.repository = repository;
+        this.carreraRepository = carreraRepository;
     }
 
     public Alumno registrarAlumno(String nombre, String apellido, String documento, String email, String legajo) {
@@ -32,10 +35,15 @@ public class AlumnoController {
         return repository.buscarTodos();
     }
 
-    public AlumnoCarrera inscribirAlumnoCarrera(String documento, String codigoCarrera, String nombreCarrera) {
+    public AlumnoCarrera inscribirAlumnoCarrera(String documento, String codigoCarrera) {
         Alumno alumno = obtenerAlumno(documento);
-        Carrera carrera = new Carrera(codigoCarrera, nombreCarrera);
+        Carrera carrera = carreraRepository.buscarPorCodigo(codigoCarrera)
+                .orElseThrow(() -> new IllegalArgumentException("No existe una carrera con código " + codigoCarrera));
         return alumnoService.inscribirAlumnoCarrera(alumno, carrera);
+    }
+
+    public List<Carrera> listarCarrerasDisponibles() {
+        return carreraRepository.listarCarreras();
     }
 
     public AlumnoInscripto inscribirAlumnoComision(String documento, String codigoComision, String materia) {

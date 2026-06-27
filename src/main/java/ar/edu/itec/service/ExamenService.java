@@ -1,6 +1,7 @@
 package ar.edu.itec.service;
 
 import ar.edu.itec.model.Examen;
+import ar.edu.itec.model.Carrera;
 import ar.edu.itec.enums.TipoEvaluacion;
 import ar.edu.itec.repository.ExamenRepository;
 
@@ -15,8 +16,8 @@ public class ExamenService {
         this.examenRepository = examenRepository;
     }
 
-    public Examen registrarExamen(String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
-        Examen examen = new Examen(nombre, descripcion, fecha, tipoEvaluacion);
+    public Examen registrarExamen(Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+        Examen examen = new Examen(carrera, nombre, descripcion, fecha, tipoEvaluacion);
         return examenRepository.guardar(examen);
     }
 
@@ -33,8 +34,9 @@ public class ExamenService {
                 .orElseThrow(() -> new IllegalArgumentException("No existe un examen con id " + id));
     }
 
-    public Examen modificarExamen(Long id, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+    public Examen modificarExamen(Long id, Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
         Examen examen = obtenerExamenPorId(id);
+        examen.setCarrera(carrera);
         examen.setNombre(nombre);
         examen.setDescripcion(descripcion);
         examen.setFecha(fecha);

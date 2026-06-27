@@ -4,6 +4,7 @@ import ar.edu.itec.controller.AlumnoController;
 import ar.edu.itec.model.Alumno;
 import ar.edu.itec.model.AlumnoCarrera;
 import ar.edu.itec.model.AlumnoInscripto;
+import ar.edu.itec.model.Carrera;
 
 import java.util.List;
 import java.util.Scanner;
@@ -74,10 +75,10 @@ public class AlumnoView {
 
     private void inscribirCarrera() {
         try {
+            mostrarCarrerasDisponibles();
             AlumnoCarrera inscripcion = alumnoController.inscribirAlumnoCarrera(
                     pedirTexto("Documento del alumno: "),
-                    pedirTexto("Código de carrera: "),
-                    pedirTexto("Nombre de carrera: "));
+                    pedirTexto("Código de carrera: "));
             mostrarMensaje("Inscripción exitosa: " + inscripcion);
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
@@ -152,5 +153,13 @@ public class AlumnoView {
             return;
         }
         comisiones.forEach(System.out::println);
+    }
+
+    private void mostrarCarrerasDisponibles() {
+        mostrarMensaje("\nCarreras disponibles:");
+        List<Carrera> carreras = alumnoController.listarCarrerasDisponibles();
+        for (Carrera carrera : carreras) {
+            System.out.println(" - " + carrera.getCodigo() + ": " + carrera.getNombre());
+        }
     }
 }

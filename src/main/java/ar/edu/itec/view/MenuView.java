@@ -5,6 +5,7 @@ import ar.edu.itec.controller.AsistenciaController;
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.repository.AlumnoRepository;
 import ar.edu.itec.repository.AsistenciaRepository;
+import ar.edu.itec.repository.CarreraRepository;
 import ar.edu.itec.repository.ExamenRepository;
 import ar.edu.itec.service.AlumnoService;
 import ar.edu.itec.service.AsistenciaService;
@@ -23,12 +24,13 @@ public class MenuView {
         this.scanner = new Scanner(System.in);
 
         AlumnoRepository alumnoRepository = new AlumnoRepository();
+        CarreraRepository carreraRepository = new CarreraRepository();
         AlumnoService alumnoService = new AlumnoService(alumnoRepository);
-        AlumnoController alumnoController = new AlumnoController(alumnoService, alumnoRepository);
+        AlumnoController alumnoController = new AlumnoController(alumnoService, alumnoRepository, carreraRepository);
 
         ExamenRepository examenRepository = new ExamenRepository();
         ExamenService examenService = new ExamenService(examenRepository);
-        ExamenController examenController = new ExamenController(examenService);
+        ExamenController examenController = new ExamenController(examenService, carreraRepository);
 
         AsistenciaRepository asistenciaRepository = new AsistenciaRepository();
         AsistenciaService asistenciaService = new AsistenciaService(asistenciaRepository);
@@ -37,6 +39,8 @@ public class MenuView {
         this.alumnoView = new AlumnoView(alumnoController, scanner);
         this.examenView = new ExamenView(examenController, scanner);
         this.asistenciaView = new AsistenciaView(asistenciaController, scanner);
+
+        precargarDatosIniciales(alumnoController);
     }
 
     public void iniciar() {
@@ -74,6 +78,23 @@ public class MenuView {
             return Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
             return -1;
+        }
+    }
+
+    private void precargarDatosIniciales(AlumnoController alumnoController) {
+        registrarAlumnoInicial(alumnoController, "Axel", "Almada", "40123456", "axel@itec.edu", "LEG-001", "TSP");
+        registrarAlumnoInicial(alumnoController, "Lucas", "Giorgi", "41123456", "lucas@itec.edu", "LEG-002", "TAS");
+        registrarAlumnoInicial(alumnoController, "Alejandro", "Lopez", "42123456", "alejandro@itec.edu", "LEG-003", "LDS");
+        registrarAlumnoInicial(alumnoController, "Leonardo", "Rios", "43123456", "leonardo@itec.edu", "LEG-004", "TSP");
+    }
+
+    private void registrarAlumnoInicial(AlumnoController alumnoController, String nombre, String apellido,
+                                        String documento, String email, String legajo, String codigoCarrera) {
+        try {
+            alumnoController.registrarAlumno(nombre, apellido, documento, email, legajo);
+            alumnoController.inscribirAlumnoCarrera(documento, codigoCarrera);
+        } catch (IllegalArgumentException e) {
+            System.out.println("No se pudo precargar " + nombre + " " + apellido + ": " + e.getMessage());
         }
     }
 }

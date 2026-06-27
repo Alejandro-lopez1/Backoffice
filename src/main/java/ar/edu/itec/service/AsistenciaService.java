@@ -14,9 +14,9 @@ public class AsistenciaService {
         this.asistenciaRepository = asistenciaRepository;
     }
 
-    public AsistenciaAlumno registrarAsistencia(String documentoAlumno, LocalDate fecha, boolean presente) {
+    public AsistenciaAlumno registrarAsistencia(String documentoAlumno, boolean presente) {
+        LocalDate fecha = LocalDate.now();
         validarDocumento(documentoAlumno);
-        validarFecha(fecha);
         if (existeAsistencia(documentoAlumno, fecha)) {
             throw new IllegalArgumentException(
                     "Ya existe una asistencia registrada para el documento " + documentoAlumno + " en la fecha " + fecha);
