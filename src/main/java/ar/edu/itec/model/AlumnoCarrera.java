@@ -13,23 +13,18 @@ public class AlumnoCarrera {
 
     private Alumno alumno;
     private Carrera carrera;
-    private PlanEstudio planEstudio;
     private LocalDate fechaInscripcion;
     private Estado estado;
 
-    public AlumnoCarrera(Alumno alumno, Carrera carrera, PlanEstudio planEstudio) {
+    public AlumnoCarrera(Alumno alumno, Carrera carrera) {
         if (alumno == null) {
             throw new IllegalArgumentException("El alumno no puede ser null");
         }
         if (carrera == null) {
             throw new IllegalArgumentException("La carrera no puede ser null");
         }
-        if (planEstudio == null) {
-            throw new IllegalArgumentException("El plan de estudio no puede ser null");
-        }
         this.alumno = alumno;
         this.carrera = carrera;
-        this.planEstudio = planEstudio;
         this.fechaInscripcion = LocalDate.now();
         this.estado = Estado.ACTIVO;
     }
@@ -40,10 +35,6 @@ public class AlumnoCarrera {
 
     public Carrera getCarrera() {
         return carrera;
-    }
-
-    public PlanEstudio getPlanEstudio() {
-        return planEstudio;
     }
 
     public LocalDate getFechaInscripcion() {

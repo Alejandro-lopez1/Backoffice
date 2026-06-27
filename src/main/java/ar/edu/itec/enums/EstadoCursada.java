@@ -1,4 +1,4 @@
-package ar.edu.itec.model;
+package ar.edu.itec.enums;
 
 public enum EstadoCursada {
     PROMOCIONADO,

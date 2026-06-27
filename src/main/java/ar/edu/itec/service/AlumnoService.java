@@ -41,12 +41,12 @@ public class AlumnoService {
         return repository.buscarPorNombre(criterio);
     }
 
-    public AlumnoCarrera inscribirAlumnoCarrera(Alumno alumno, Carrera carrera, PlanEstudio planEstudio) {
+    public AlumnoCarrera inscribirAlumnoCarrera(Alumno alumno, Carrera carrera) {
         if (repository.existeInscripcionCarrera(alumno, carrera.getCodigo())) {
             throw new IllegalArgumentException(
                     "El alumno " + alumno.getNombreCompleto() + " ya está inscripto en la carrera " + carrera.getNombre());
         }
-        AlumnoCarrera inscripcion = new AlumnoCarrera(alumno, carrera, planEstudio);
+        AlumnoCarrera inscripcion = new AlumnoCarrera(alumno, carrera);
         repository.guardarInscripcionCarrera(inscripcion);
         return inscripcion;
     }
