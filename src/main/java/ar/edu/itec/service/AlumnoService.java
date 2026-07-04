@@ -14,14 +14,11 @@ public class AlumnoService {
         this.repository = repository;
     }
 
-    public Alumno registrarAlumno(String nombre, String apellido, String documento, String email, String legajo) {
-        if (repository.buscarPorDocumento(documento).isPresent()) {
-            throw new IllegalArgumentException("Ya existe un alumno con el documento " + documento);
+    public Alumno registrarAlumno(String nombre, String apellido, String dni, String email, String telefono) {
+        if (repository.buscarPorDni(dni).isPresent()) {
+            throw new IllegalArgumentException("Ya existe un alumno con el DNI " + dni);
         }
-        if (repository.buscarPorLegajo(legajo).isPresent()) {
-            throw new IllegalArgumentException("Ya existe un alumno con el legajo " + legajo);
-        }
-        Alumno alumno = new Alumno(nombre, apellido, documento, email, legajo);
+        Alumno alumno = new Alumno(nombre, apellido, dni, email, telefono);
         repository.guardar(alumno);
         return alumno;
     }
@@ -30,25 +27,11 @@ public class AlumnoService {
         if (criterio == null || criterio.isBlank()) {
             return repository.buscarTodos();
         }
-        Optional<Alumno> porDocumento = repository.buscarPorDocumento(criterio);
-        if (porDocumento.isPresent()) {
-            return List.of(porDocumento.get());
-        }
-        Optional<Alumno> porLegajo = repository.buscarPorLegajo(criterio);
-        if (porLegajo.isPresent()) {
-            return List.of(porLegajo.get());
+        Optional<Alumno> porDni = repository.buscarPorDni(criterio);
+        if (porDni.isPresent()) {
+            return List.of(porDni.get());
         }
         return repository.buscarPorNombre(criterio);
-    }
-
-    public AlumnoCarrera inscribirAlumnoCarrera(Alumno alumno, Carrera carrera) {
-        if (repository.existeInscripcionCarrera(alumno, carrera.getCodigo())) {
-            throw new IllegalArgumentException(
-                    "El alumno " + alumno.getNombreCompleto() + " ya está inscripto en la carrera " + carrera.getNombre());
-        }
-        AlumnoCarrera inscripcion = new AlumnoCarrera(alumno, carrera);
-        repository.guardarInscripcionCarrera(inscripcion);
-        return inscripcion;
     }
 
     public AlumnoInscripto inscribirAlumnoComision(Alumno alumno, ComisionMateria comision) {
@@ -66,10 +49,6 @@ public class AlumnoService {
         AlumnoInscripto inscripcion = new AlumnoInscripto(alumno, comision);
         repository.guardarInscripcionComision(inscripcion);
         return inscripcion;
-    }
-
-    public List<AlumnoCarrera> obtenerCarrerasDeAlumno(Alumno alumno) {
-        return repository.buscarInscripcionesCarreraPorAlumno(alumno);
     }
 
     public List<AlumnoInscripto> obtenerComisionesDeAlumno(Alumno alumno) {

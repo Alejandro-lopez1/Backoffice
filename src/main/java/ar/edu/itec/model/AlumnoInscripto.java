@@ -11,6 +11,7 @@ public class AlumnoInscripto {
     private ComisionMateria comision;
     private LocalDate fechaInscripcion;
     private List<Asistencia> asistencias;
+    private List<Nota> notas;
 
     public AlumnoInscripto(Alumno alumno, ComisionMateria comision) {
         if (alumno == null) {
@@ -23,6 +24,7 @@ public class AlumnoInscripto {
         this.comision = comision;
         this.fechaInscripcion = LocalDate.now();
         this.asistencias = new ArrayList<>();
+        this.notas = new ArrayList<>();
     }
 
     public Alumno getAlumno() {
@@ -62,6 +64,17 @@ public class AlumnoInscripto {
 
     public boolean esRegular(double porcentajeMinimo) {
         return calcularPorcentajeAsistencia() >= porcentajeMinimo;
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void agregarNota(Nota nota) {
+        if (nota == null) {
+            throw new IllegalArgumentException("La nota no puede ser null");
+        }
+        notas.add(nota);
     }
 
     @Override

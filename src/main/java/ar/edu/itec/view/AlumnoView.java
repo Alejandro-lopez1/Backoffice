@@ -2,9 +2,7 @@ package ar.edu.itec.view;
 
 import ar.edu.itec.controller.AlumnoController;
 import ar.edu.itec.model.Alumno;
-import ar.edu.itec.model.AlumnoCarrera;
 import ar.edu.itec.model.AlumnoInscripto;
-import ar.edu.itec.model.Carrera;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,10 +26,8 @@ public class AlumnoView {
                 case 1 -> registrarAlumno();
                 case 2 -> buscarAlumno();
                 case 3 -> listarAlumnos();
-                case 4 -> inscribirCarrera();
-                case 5 -> inscribirComision();
-                case 6 -> verCarreras();
-                case 7 -> verComisiones();
+                case 4 -> inscribirComision();
+                case 5 -> verComisiones();
                 case 0 -> mostrarMensaje("Volviendo...");
                 default -> mostrarMensaje("Opción inválida");
             }
@@ -43,10 +39,8 @@ public class AlumnoView {
         System.out.println("1. Registrar alumno");
         System.out.println("2. Buscar alumno");
         System.out.println("3. Listar todos los alumnos");
-        System.out.println("4. Inscribir alumno en carrera");
-        System.out.println("5. Inscribir alumno en comisión");
-        System.out.println("6. Ver carreras de un alumno");
-        System.out.println("7. Ver comisiones de un alumno");
+        System.out.println("4. Inscribir alumno en comisión");
+        System.out.println("5. Ver comisiones de un alumno");
         System.out.println("0. Volver");
     }
 
@@ -55,9 +49,9 @@ public class AlumnoView {
             Alumno alumno = alumnoController.registrarAlumno(
                     pedirTexto("Nombre: "),
                     pedirTexto("Apellido: "),
-                    pedirTexto("Documento: "),
+                    pedirTexto("DNI: "),
                     pedirTexto("Email: "),
-                    pedirTexto("Legajo: "));
+                    pedirTexto("Teléfono: "));
             mostrarMensaje("Alumno registrado: " + alumno);
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
@@ -65,7 +59,7 @@ public class AlumnoView {
     }
 
     private void buscarAlumno() {
-        List<Alumno> resultados = alumnoController.buscarAlumno(pedirTexto("Ingrese documento, legajo, nombre o apellido: "));
+        List<Alumno> resultados = alumnoController.buscarAlumno(pedirTexto("Ingrese DNI, nombre o apellido: "));
         mostrarAlumnos(resultados);
     }
 
@@ -73,22 +67,10 @@ public class AlumnoView {
         mostrarAlumnos(alumnoController.listarAlumnos());
     }
 
-    private void inscribirCarrera() {
-        try {
-            mostrarCarrerasDisponibles();
-            AlumnoCarrera inscripcion = alumnoController.inscribirAlumnoCarrera(
-                    pedirTexto("Documento del alumno: "),
-                    pedirTexto("Código de carrera: "));
-            mostrarMensaje("Inscripción exitosa: " + inscripcion);
-        } catch (IllegalArgumentException e) {
-            mostrarMensaje("Error: " + e.getMessage());
-        }
-    }
-
     private void inscribirComision() {
         try {
             AlumnoInscripto inscripcion = alumnoController.inscribirAlumnoComision(
-                    pedirTexto("Documento del alumno: "),
+                    pedirTexto("DNI del alumno: "),
                     pedirTexto("Código de comisión: "),
                     pedirTexto("Materia: "));
             mostrarMensaje("Inscripción exitosa: " + inscripcion);
@@ -97,17 +79,9 @@ public class AlumnoView {
         }
     }
 
-    private void verCarreras() {
-        try {
-            mostrarCarreras(alumnoController.obtenerCarrerasDeAlumno(pedirTexto("Documento del alumno: ")));
-        } catch (IllegalArgumentException e) {
-            mostrarMensaje("Error: " + e.getMessage());
-        }
-    }
-
     private void verComisiones() {
         try {
-            mostrarComisiones(alumnoController.obtenerComisionesDeAlumno(pedirTexto("Documento del alumno: ")));
+            mostrarComisiones(alumnoController.obtenerComisionesDeAlumno(pedirTexto("DNI del alumno: ")));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -139,27 +113,11 @@ public class AlumnoView {
         alumnos.forEach(System.out::println);
     }
 
-    private void mostrarCarreras(List<AlumnoCarrera> carreras) {
-        if (carreras.isEmpty()) {
-            mostrarMensaje("El alumno no está inscripto en ninguna carrera.");
-            return;
-        }
-        carreras.forEach(System.out::println);
-    }
-
     private void mostrarComisiones(List<AlumnoInscripto> comisiones) {
         if (comisiones.isEmpty()) {
             mostrarMensaje("El alumno no está inscripto en ninguna comisión.");
             return;
         }
         comisiones.forEach(System.out::println);
-    }
-
-    private void mostrarCarrerasDisponibles() {
-        mostrarMensaje("\nCarreras disponibles:");
-        List<Carrera> carreras = alumnoController.listarCarrerasDisponibles();
-        for (Carrera carrera : carreras) {
-            System.out.println(" - " + carrera.getCodigo() + ": " + carrera.getNombre());
-        }
     }
 }

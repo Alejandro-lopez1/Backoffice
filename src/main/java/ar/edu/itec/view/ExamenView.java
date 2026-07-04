@@ -2,7 +2,7 @@ package ar.edu.itec.view;
 
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.enums.TipoEvaluacion;
-import ar.edu.itec.model.Carrera;
+import ar.edu.itec.model.ComisionMateria;
 import ar.edu.itec.model.Examen;
 
 import java.time.LocalDate;
@@ -52,15 +52,15 @@ public class ExamenView {
 
     private void registrarExamen() {
         try {
-            Carrera carrera = seleccionarCarrera();
+            ComisionMateria comision = crearComision();
             TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.registrarExamen(
-                    carrera,
+                    comision,
                     pedirTexto("Nombre: "),
                     pedirTexto("Descripción: "),
                     pedirFecha("Fecha (dd-MM-aaaa): "),
                     tipoEvaluacion);
-            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getCarrera() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
+            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getComision().getMateria() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -77,16 +77,16 @@ public class ExamenView {
 
     private void modificarExamen() {
         try {
-            Carrera carrera = seleccionarCarrera();
+            ComisionMateria comision = crearComision();
             TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.modificarExamen(
                     pedirLong("Id del examen: "),
-                    carrera,
+                    comision,
                     pedirTexto("Nombre: "),
                     pedirTexto("Descripción: "),
                     pedirFecha("Fecha (dd-MM-aaaa): "),
                     tipoEvaluacion);
-            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getCarrera() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
+            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getComision().getMateria() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -152,7 +152,11 @@ public class ExamenView {
         for (Examen examen : examenes) {
             System.out.println("--------------------------------------------------");
             System.out.println("ID: " + formatearId(examen.getId()));
-            System.out.println("Carrera: " + examen.getCarrera());
+            System.out.println("Comisión: " + examen.getComision().getCodigo());
+            System.out.println("Materia: " + examen.getComision().getMateria());
+            if (examen.getComision().getProfesor() != null) {
+                System.out.println("Profesor: " + examen.getComision().getProfesor().getNombreCompleto());
+            }
             System.out.println("Nombre: " + examen.getNombre());
             System.out.println("Descripcion: " + examen.getDescripcion());
             System.out.println("Fecha: " + formatearFecha(examen.getFecha()));
@@ -174,13 +178,10 @@ public class ExamenView {
         return fecha == null ? "-" : fecha.format(FECHA_FORMATTER);
     }
 
-    private Carrera seleccionarCarrera() {
-        System.out.println("Carreras disponibles:");
-        List<Carrera> carreras = examenController.listarCarrerasDisponibles();
-        for (Carrera carrera : carreras) {
-            System.out.println(" - " + carrera.getCodigo() + ": " + carrera.getNombre());
-        }
-        return examenController.buscarCarreraPorCodigo(pedirTexto("Código de carrera: "));
+    private ComisionMateria crearComision() {
+        String codigo = pedirTexto("Código de comisión: ");
+        String materia = pedirTexto("Materia: ");
+        return new ComisionMateria(codigo, materia);
     }
 
     private String formatearId(Long id) {

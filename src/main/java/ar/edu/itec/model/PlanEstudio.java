@@ -6,8 +6,9 @@ public class PlanEstudio {
 
     private Carrera carrera;
     private int anio;
+    private Materia materia;
 
-    public PlanEstudio(Carrera carrera, int anio) {
+    public PlanEstudio(Carrera carrera, int anio, Materia materia) {
         if (carrera == null) {
             throw new IllegalArgumentException("La carrera no puede ser null");
         }
@@ -16,6 +17,13 @@ public class PlanEstudio {
         }
         this.carrera = carrera;
         this.anio = anio;
+        this.materia = materia;
+    }
+
+    // Constructor compatible con código anterior
+    @Deprecated
+    public PlanEstudio(Carrera carrera, int anio) {
+        this(carrera, anio, null);
     }
 
     public Carrera getCarrera() {
@@ -24,6 +32,14 @@ public class PlanEstudio {
 
     public int getAnio() {
         return anio;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     @Override

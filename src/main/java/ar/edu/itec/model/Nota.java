@@ -5,8 +5,7 @@ import java.time.LocalDate;
 public class Nota {
 
     private Long id;
-    private Long examenId;
-    private Long alumnoId;
+    private Examen examen;
     private Double valor;
     private String observacion;
     private LocalDate fechaRegistro;
@@ -14,13 +13,16 @@ public class Nota {
     public Nota() {
     }
 
-    public Nota(Long id, Long examenId, Long alumnoId, Double valor, String observacion, LocalDate fechaRegistro) {
+    public Nota(Long id, Examen examen, Double valor, String observacion, LocalDate fechaRegistro) {
         this.id = id;
-        this.examenId = examenId;
-        this.alumnoId = alumnoId;
+        this.examen = examen;
         this.valor = valor;
         this.observacion = observacion;
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public Nota(Examen examen, Double valor) {
+        this(null, examen, valor, null, LocalDate.now());
     }
 
     public Long getId() {
@@ -31,20 +33,12 @@ public class Nota {
         this.id = id;
     }
 
-    public Long getExamenId() {
-        return examenId;
+    public Examen getExamen() {
+        return examen;
     }
 
-    public void setExamenId(Long examenId) {
-        this.examenId = examenId;
-    }
-
-    public Long getAlumnoId() {
-        return alumnoId;
-    }
-
-    public void setAlumnoId(Long alumnoId) {
-        this.alumnoId = alumnoId;
+    public void setExamen(Examen examen) {
+        this.examen = examen;
     }
 
     public Double getValor() {
@@ -75,8 +69,7 @@ public class Nota {
     public String toString() {
         return "Nota{" +
                 "id=" + id +
-                ", examenId=" + examenId +
-                ", alumnoId=" + alumnoId +
+                ", examen=" + (examen != null ? examen.getNombre() : "null") +
                 ", valor=" + valor +
                 ", observacion='" + observacion + '\'' +
                 ", fechaRegistro=" + fechaRegistro +

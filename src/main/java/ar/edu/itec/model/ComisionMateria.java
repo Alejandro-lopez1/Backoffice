@@ -7,27 +7,60 @@ import java.util.Objects;
 public class ComisionMateria {
 
     private String codigo;
-    private String materia;
+    private Materia materia;
+    private Profesor profesor;
+    private Cuatrimestre cuatrimestre;
     private List<HorarioClase> horarios;
 
-    public ComisionMateria(String codigo, String materia) {
+    public ComisionMateria(String codigo, Materia materia, Profesor profesor, Cuatrimestre cuatrimestre) {
         if (codigo == null || codigo.isBlank()) {
             throw new IllegalArgumentException("El código de comisión no puede ser nulo o vacío");
         }
-        if (materia == null || materia.isBlank()) {
-            throw new IllegalArgumentException("La materia no puede ser nula o vacía");
+        if (materia == null) {
+            throw new IllegalArgumentException("La materia no puede ser null");
         }
         this.codigo = codigo;
         this.materia = materia;
+        this.profesor = profesor;
+        this.cuatrimestre = cuatrimestre;
         this.horarios = new ArrayList<>();
+    }
+
+    // Constructor compatible con código anterior
+    @Deprecated
+    public ComisionMateria(String codigo, String materiaStr) {
+        this(codigo, new Materia(materiaStr), null, null);
     }
 
     public String getCodigo() {
         return codigo;
     }
 
-    public String getMateria() {
+    public Materia getMateria() {
         return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        if (materia == null) {
+            throw new IllegalArgumentException("La materia no puede ser null");
+        }
+        this.materia = materia;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public Cuatrimestre getCuatrimestre() {
+        return cuatrimestre;
+    }
+
+    public void setCuatrimestre(Cuatrimestre cuatrimestre) {
+        this.cuatrimestre = cuatrimestre;
     }
 
     public List<HorarioClase> getHorarios() {

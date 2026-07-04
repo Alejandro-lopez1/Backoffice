@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Examen {
 
     private Long id;
-    private Carrera carrera;
+    private ComisionMateria comision;
     private String nombre;
     private String descripcion;
     private LocalDate fecha;
@@ -16,17 +16,17 @@ public class Examen {
     public Examen() {
     }
 
-    public Examen(Long id, Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+    public Examen(Long id, ComisionMateria comision, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
         setId(id);
-        setCarrera(carrera);
+        setComision(comision);
         setNombre(nombre);
         setDescripcion(descripcion);
         setFecha(fecha);
         setTipoEvaluacion(tipoEvaluacion);
     }
 
-    public Examen(Carrera carrera, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
-        this(null, carrera, nombre, descripcion, fecha, tipoEvaluacion);
+    public Examen(ComisionMateria comision, String nombre, String descripcion, LocalDate fecha, TipoEvaluacion tipoEvaluacion) {
+        this(null, comision, nombre, descripcion, fecha, tipoEvaluacion);
     }
 
     public Long getId() {
@@ -37,15 +37,15 @@ public class Examen {
         this.id = id;
     }
 
-    public Carrera getCarrera() {
-        return carrera;
+    public ComisionMateria getComision() {
+        return comision;
     }
 
-    public void setCarrera(Carrera carrera) {
-        if (carrera == null) {
-            throw new IllegalArgumentException("La carrera no puede ser null");
+    public void setComision(ComisionMateria comision) {
+        if (comision == null) {
+            throw new IllegalArgumentException("La comisión no puede ser null");
         }
-        this.carrera = carrera;
+        this.comision = comision;
     }
 
     public String getNombre() {
@@ -96,7 +96,7 @@ public class Examen {
     public String toString() {
         return "Examen{" +
                 "id=" + id +
-                ", carrera=" + carrera +
+                ", comision=" + comision +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha=" + fecha +

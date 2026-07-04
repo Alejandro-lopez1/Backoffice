@@ -1,7 +1,6 @@
 package ar.edu.itec.repository;
 
 import ar.edu.itec.model.Alumno;
-import ar.edu.itec.model.AlumnoCarrera;
 import ar.edu.itec.model.AlumnoInscripto;
 
 import java.util.ArrayList;
@@ -12,13 +11,19 @@ import java.util.stream.Collectors;
 public class AlumnoRepository {
 
     private final List<Alumno> alumnos;
-    private final List<AlumnoCarrera> inscripcionesCarrera;
     private final List<AlumnoInscripto> inscripcionesComision;
 
     public AlumnoRepository() {
         this.alumnos = new ArrayList<>();
-        this.inscripcionesCarrera = new ArrayList<>();
         this.inscripcionesComision = new ArrayList<>();
+        cargarAlumnosIniciales();
+    }
+
+    private void cargarAlumnosIniciales() {
+        alumnos.add(new Alumno("Juan", "Pérez", "12345678", "juan.perez@mail.com", "1122334455"));
+        alumnos.add(new Alumno("María", "González", "23456789", "maria.gonzalez@mail.com", "1133445566"));
+        alumnos.add(new Alumno("Carlos", "Rodríguez", "34567890", "carlos.rodriguez@mail.com", "1144556677"));
+        alumnos.add(new Alumno("Ana", "Martínez", "45678901", "ana.martinez@mail.com", "1155667788"));
     }
 
     // --- Alumno ---
@@ -27,15 +32,9 @@ public class AlumnoRepository {
         alumnos.add(alumno);
     }
 
-    public Optional<Alumno> buscarPorDocumento(String documento) {
+    public Optional<Alumno> buscarPorDni(String dni) {
         return alumnos.stream()
-                .filter(a -> a.getDocumento().equalsIgnoreCase(documento))
-                .findFirst();
-    }
-
-    public Optional<Alumno> buscarPorLegajo(String legajo) {
-        return alumnos.stream()
-                .filter(a -> a.getLegajo().equalsIgnoreCase(legajo))
+                .filter(a -> a.getDni().equalsIgnoreCase(dni))
                 .findFirst();
     }
 
@@ -48,28 +47,6 @@ public class AlumnoRepository {
 
     public List<Alumno> buscarTodos() {
         return new ArrayList<>(alumnos);
-    }
-
-    // --- AlumnoCarrera ---
-
-    public void guardarInscripcionCarrera(AlumnoCarrera inscripcion) {
-        inscripcionesCarrera.add(inscripcion);
-    }
-
-    public boolean existeInscripcionCarrera(Alumno alumno, String codigoCarrera) {
-        return inscripcionesCarrera.stream()
-                .anyMatch(ic -> ic.getAlumno().equals(alumno)
-                        && ic.getCarrera().getCodigo().equalsIgnoreCase(codigoCarrera));
-    }
-
-    public List<AlumnoCarrera> buscarInscripcionesCarreraPorAlumno(Alumno alumno) {
-        return inscripcionesCarrera.stream()
-                .filter(ic -> ic.getAlumno().equals(alumno))
-                .collect(Collectors.toList());
-    }
-
-    public List<AlumnoCarrera> buscarTodasLasInscripcionesCarrera() {
-        return new ArrayList<>(inscripcionesCarrera);
     }
 
     // --- AlumnoInscripto ---

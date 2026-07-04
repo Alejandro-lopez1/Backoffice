@@ -2,40 +2,24 @@ package ar.edu.itec.model;
 
 import java.util.Objects;
 
-public class Alumno {
+public class Profesor {
 
-    private String nombre;
     private String apellido;
-    private String dni;
+    private String nombre;
     private String email;
     private String telefono;
 
-    public Alumno(String nombre, String apellido, String dni, String email, String telefono) {
-        if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
-        }
+    public Profesor(String apellido, String nombre, String email, String telefono) {
         if (apellido == null || apellido.isBlank()) {
             throw new IllegalArgumentException("El apellido no puede ser nulo o vacío");
         }
-        if (dni == null || dni.isBlank()) {
-            throw new IllegalArgumentException("El DNI no puede ser nulo o vacío");
-        }
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.email = email;
-        this.telefono = telefono;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
         if (nombre == null || nombre.isBlank()) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         }
+        this.apellido = apellido;
         this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
     }
 
     public String getApellido() {
@@ -49,15 +33,15 @@ public class Alumno {
         this.apellido = apellido;
     }
 
-    public String getDni() {
-        return dni;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDni(String dni) {
-        if (dni == null || dni.isBlank()) {
-            throw new IllegalArgumentException("El DNI no puede ser nulo o vacío");
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         }
-        this.dni = dni;
+        this.nombre = nombre;
     }
 
     public String getEmail() {
@@ -83,18 +67,19 @@ public class Alumno {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Alumno)) return false;
-        Alumno alumno = (Alumno) o;
-        return Objects.equals(dni, alumno.dni);
+        if (!(o instanceof Profesor)) return false;
+        Profesor profesor = (Profesor) o;
+        return Objects.equals(apellido, profesor.apellido) && 
+               Objects.equals(nombre, profesor.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dni);
+        return Objects.hash(apellido, nombre);
     }
 
     @Override
     public String toString() {
-        return nombre + " " + apellido + " (DNI: " + dni + ")";
+        return getNombreCompleto();
     }
 }
