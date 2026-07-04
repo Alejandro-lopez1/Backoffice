@@ -20,10 +20,10 @@ public class AlumnoRepository {
     }
 
     private void cargarAlumnosIniciales() {
-        alumnos.add(new Alumno("Juan", "Pérez", "12345678", "juan.perez@mail.com", "1122334455"));
-        alumnos.add(new Alumno("María", "González", "23456789", "maria.gonzalez@mail.com", "1133445566"));
-        alumnos.add(new Alumno("Carlos", "Rodríguez", "34567890", "carlos.rodriguez@mail.com", "1144556677"));
-        alumnos.add(new Alumno("Ana", "Martínez", "45678901", "ana.martinez@mail.com", "1155667788"));
+        alumnos.add(new Alumno("Lucas", "Giorgi", "40123456", "lucas@ejemplo.com", "3764123456"));
+        alumnos.add(new Alumno("Axel", "Almada", "41123456", "axel@ejemplo.com", "3764987456"));
+        alumnos.add(new Alumno("Enrique", "Lopez", "42123456", "enrique@ejemplo.com", "3764745698"));
+        alumnos.add(new Alumno("Leonardo", "Rios", "43123456", "leonardoi@ejemplo.com", "3764456321"));
     }
 
     // --- Alumno ---
