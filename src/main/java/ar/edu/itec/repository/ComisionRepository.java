@@ -33,7 +33,7 @@ public class ComisionRepository {
         Cuatrimestre c2024_2 = new Cuatrimestre(2024, 2, LocalDate.of(2024, 8, 1), LocalDate.of(2024, 12, 15));
 
         // Comisión 1: Programación I - Turno Mañana
-        ComisionMateria com1A = new ComisionMateria("1A-PROG1-M", prog1, garcia, c2024_1);
+        ComisionMateria com1A = new ComisionMateria("Comisión-1", prog1, garcia, c2024_1);
         HorarioClase horario1A_lunes = new HorarioClase(DayOfWeek.MONDAY);
         horario1A_lunes.agregarModulo(new ModuloHorario(1, LocalTime.of(8, 0), LocalTime.of(10, 0)));
         HorarioClase horario1A_miercoles = new HorarioClase(DayOfWeek.WEDNESDAY);
@@ -43,7 +43,7 @@ public class ComisionRepository {
         comisiones.add(com1A);
 
         // Comisión 2: Programación I - Turno Noche
-        ComisionMateria com1B = new ComisionMateria("1B-PROG1-N", prog1, fernandez, c2024_1);
+        ComisionMateria com1B = new ComisionMateria("Comisión-2", prog1, fernandez, c2024_1);
         HorarioClase horario1B_martes = new HorarioClase(DayOfWeek.TUESDAY);
         horario1B_martes.agregarModulo(new ModuloHorario(4, LocalTime.of(18, 0), LocalTime.of(20, 0)));
         HorarioClase horario1B_jueves = new HorarioClase(DayOfWeek.THURSDAY);
@@ -53,7 +53,7 @@ public class ComisionRepository {
         comisiones.add(com1B);
 
         // Comisión 3: Programación II - Turno Mañana
-        ComisionMateria com2A = new ComisionMateria("2A-PROG2-M", prog2, lopez, c2024_2);
+        ComisionMateria com2A = new ComisionMateria("Comisión-3", prog2, lopez, c2024_2);
         HorarioClase horario2A_lunes = new HorarioClase(DayOfWeek.MONDAY);
         horario2A_lunes.agregarModulo(new ModuloHorario(2, LocalTime.of(10, 0), LocalTime.of(12, 0)));
         HorarioClase horario2A_miercoles = new HorarioClase(DayOfWeek.WEDNESDAY);
@@ -63,7 +63,7 @@ public class ComisionRepository {
         comisiones.add(com2A);
 
         // Comisión 4: Base de Datos - Turno Tarde
-        ComisionMateria com3A = new ComisionMateria("3A-BD-T", bd, garcia, c2024_2);
+        ComisionMateria com3A = new ComisionMateria("Comisión-4", bd, garcia, c2024_2);
         HorarioClase horario3A_martes = new HorarioClase(DayOfWeek.TUESDAY);
         horario3A_martes.agregarModulo(new ModuloHorario(3, LocalTime.of(14, 0), LocalTime.of(16, 0)));
         HorarioClase horario3A_viernes = new HorarioClase(DayOfWeek.FRIDAY);
