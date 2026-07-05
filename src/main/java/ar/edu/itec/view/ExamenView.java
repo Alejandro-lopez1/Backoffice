@@ -2,8 +2,8 @@ package ar.edu.itec.view;
 
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.enums.TipoEvaluacion;
-import ar.edu.itec.model.ComisionMateria;
-import ar.edu.itec.model.Examen;
+import ar.edu.itec.model.*;
+import ar.edu.itec.repository.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,10 +16,18 @@ public class ExamenView {
     private static final DateTimeFormatter FECHA_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final ExamenController examenController;
+    private final CarreraRepository carreraRepository;
+    private final PlanEstudioRepository planEstudioRepository;
+    private final ComisionRepository comisionRepository;
     private final Scanner scanner;
 
-    public ExamenView(ExamenController examenController, Scanner scanner) {
+    public ExamenView(ExamenController examenController, CarreraRepository carreraRepository,
+                      PlanEstudioRepository planEstudioRepository, ComisionRepository comisionRepository,
+                      Scanner scanner) {
         this.examenController = examenController;
+        this.carreraRepository = carreraRepository;
+        this.planEstudioRepository = planEstudioRepository;
+        this.comisionRepository = comisionRepository;
         this.scanner = scanner;
     }
 
@@ -52,15 +60,16 @@ public class ExamenView {
 
     private void registrarExamen() {
         try {
-            ComisionMateria comision = crearComision();
+            Carrera carrera = seleccionarCarrera();
+            Materia materia = seleccionarMateria(carrera);
+            ComisionMateria comision = seleccionarComision(materia);
+            LocalDate fecha = pedirFecha("Fecha (dd-MM-aaaa): ");
+            String nombre = pedirTexto("Título del examen: ");
             TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.registrarExamen(
-                    comision,
-                    pedirTexto("Nombre: "),
-                    pedirTexto("Descripción: "),
-                    pedirFecha("Fecha (dd-MM-aaaa): "),
-                    tipoEvaluacion);
-            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getComision().getMateria() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
+                    comision, nombre, "", fecha, tipoEvaluacion);
+            System.out.println("\n--- EXAMEN REGISTRADO ---");
+            mostrarExamen(examen);
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -77,16 +86,18 @@ public class ExamenView {
 
     private void modificarExamen() {
         try {
-            ComisionMateria comision = crearComision();
+            Long id = pedirLong("Id del examen: ");
+            Carrera carrera = seleccionarCarrera();
+            Materia materia = seleccionarMateria(carrera);
+            ComisionMateria comision = seleccionarComision(materia);
+            String nombre = pedirTexto("Nombre: ");
+            String descripcion = pedirTexto("Descripción: ");
+            LocalDate fecha = pedirFecha("Fecha (dd-MM-aaaa): ");
             TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.modificarExamen(
-                    pedirLong("Id del examen: "),
-                    comision,
-                    pedirTexto("Nombre: "),
-                    pedirTexto("Descripción: "),
-                    pedirFecha("Fecha (dd-MM-aaaa): "),
-                    tipoEvaluacion);
-            mostrarMensaje("Examen " + formatearId(examen.getId()) + ": " + examen.getComision().getMateria() + " - " + examen.getNombre() + " - " + formatearFecha(examen.getFecha()));
+                    id, comision, nombre, descripcion, fecha, tipoEvaluacion);
+            mostrarMensaje("Examen modificado:");
+            mostrarExamen(examen);
         } catch (IllegalArgumentException e) {
             mostrarMensaje("Error: " + e.getMessage());
         }
@@ -158,7 +169,7 @@ public class ExamenView {
                 System.out.println("Profesor: " + examen.getComision().getProfesor().getNombreCompleto());
             }
             System.out.println("Nombre: " + examen.getNombre());
-            System.out.println("Descripcion: " + examen.getDescripcion());
+            System.out.println("Descripción: " + examen.getDescripcion());
             System.out.println("Fecha: " + formatearFecha(examen.getFecha()));
             System.out.println("Tipo: " + formatearTipo(examen.getTipoEvaluacion()));
         }
@@ -178,10 +189,75 @@ public class ExamenView {
         return fecha == null ? "-" : fecha.format(FECHA_FORMATTER);
     }
 
-    private ComisionMateria crearComision() {
-        String codigo = pedirTexto("Código de comisión: ");
-        String materia = pedirTexto("Materia: ");
-        return new ComisionMateria(codigo, materia);
+    private void mostrarExamen(Examen examen) {
+        System.out.println("--------------------------------------------------");
+        System.out.println("ID: " + formatearId(examen.getId()));
+        System.out.println("Comisión: " + examen.getComision().getCodigo());
+        System.out.println("Materia: " + examen.getComision().getMateria());
+        if (examen.getComision().getProfesor() != null) {
+            System.out.println("Profesor: " + examen.getComision().getProfesor().getNombreCompleto());
+        }
+        System.out.println("Nombre: " + examen.getNombre());
+        System.out.println("Descripción: " + examen.getDescripcion());
+        System.out.println("Fecha: " + formatearFecha(examen.getFecha()));
+        System.out.println("Tipo: " + formatearTipo(examen.getTipoEvaluacion()));
+        System.out.println("--------------------------------------------------");
+    }
+
+    private Carrera seleccionarCarrera() {
+        List<Carrera> carreras = carreraRepository.listarCarreras();
+        System.out.println("\n--- CARRERAS DISPONIBLES ---");
+        for (Carrera c : carreras) {
+            System.out.println("  " + c.getCodigo() + " - " + c.getNombre());
+        }
+        while (true) {
+            System.out.print("Seleccione código de carrera: ");
+            String codigo = scanner.nextLine().trim();
+            Carrera carrera = carreraRepository.buscarPorCodigo(codigo).orElse(null);
+            if (carrera != null) {
+                return carrera;
+            }
+            mostrarMensaje("Código inválido, intente nuevamente.");
+        }
+    }
+
+    private Materia seleccionarMateria(Carrera carrera) {
+        List<PlanEstudio> planes = planEstudioRepository.buscarPorCarrera(carrera.getCodigo());
+        if (planes.isEmpty()) {
+            throw new IllegalArgumentException("La carrera " + carrera.getCodigo() + " no tiene materias cargadas.");
+        }
+        System.out.println("\n--- MATERIAS DE " + carrera.getCodigo().toUpperCase() + " ---");
+        for (int i = 0; i < planes.size(); i++) {
+            PlanEstudio p = planes.get(i);
+            System.out.println("  " + (i + 1) + ". " + p.getMateria().getNombre() + " (" + p.getAnio() + "° año)");
+        }
+        while (true) {
+            int opcion = leerEnteroConMensaje("Seleccione materia: ");
+            if (opcion >= 1 && opcion <= planes.size()) {
+                return planes.get(opcion - 1).getMateria();
+            }
+            mostrarMensaje("Opción inválida, intente nuevamente.");
+        }
+    }
+
+    private ComisionMateria seleccionarComision(Materia materia) {
+        List<ComisionMateria> comisiones = comisionRepository.buscarPorMateria(materia.getNombre());
+        if (comisiones.isEmpty()) {
+            throw new IllegalArgumentException("No hay comisiones para la materia " + materia.getNombre());
+        }
+        System.out.println("\n--- COMISIONES DE " + materia.getNombre().toUpperCase() + " ---");
+        for (int i = 0; i < comisiones.size(); i++) {
+            ComisionMateria c = comisiones.get(i);
+            System.out.println("  " + (i + 1) + ". " + c.getCodigo()
+                    + (c.getProfesor() != null ? " - " + c.getProfesor().getNombreCompleto() : ""));
+        }
+        while (true) {
+            int opcion = leerEnteroConMensaje("Seleccione comisión: ");
+            if (opcion >= 1 && opcion <= comisiones.size()) {
+                return comisiones.get(opcion - 1);
+            }
+            mostrarMensaje("Opción inválida, intente nuevamente.");
+        }
     }
 
     private String formatearId(Long id) {

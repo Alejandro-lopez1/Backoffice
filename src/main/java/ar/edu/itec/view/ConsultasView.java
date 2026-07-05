@@ -211,7 +211,7 @@ public class ConsultasView {
         }
         System.out.println("Horarios:");
         for (HorarioClase horario : comision.getHorarios()) {
-            System.out.println("  " + horario.getDiaSemana() + ": " + horario.getModulos());
+            System.out.println("  " + horario.getDiaSemanaEspanol() + ": " + horario.getModulos());
         }
         System.out.println("---");
     }

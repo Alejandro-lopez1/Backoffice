@@ -1,5 +1,6 @@
 package ar.edu.itec.repository;
 
+import ar.edu.itec.model.ComisionMateria;
 import ar.edu.itec.model.Examen;
 
 import java.util.ArrayList;
@@ -40,6 +41,12 @@ public class ExamenRepository {
         return examenes.stream()
                 .filter(examen -> id.equals(examen.getId()))
                 .findFirst();
+    }
+
+    public List<Examen> buscarPorComision(ComisionMateria comision) {
+        return examenes.stream()
+                .filter(e -> e.getComision().equals(comision))
+                .toList();
     }
 
     public List<Examen> buscarPorCriterio(String criterio) {

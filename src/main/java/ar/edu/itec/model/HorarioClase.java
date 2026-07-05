@@ -80,9 +80,21 @@ public class HorarioClase {
         return total;
     }
 
+    public String getDiaSemanaEspanol() {
+        return switch (diaSemana) {
+            case MONDAY -> "Lunes";
+            case TUESDAY -> "Martes";
+            case WEDNESDAY -> "Miércoles";
+            case THURSDAY -> "Jueves";
+            case FRIDAY -> "Viernes";
+            case SATURDAY -> "Sábado";
+            case SUNDAY -> "Domingo";
+        };
+    }
+
     @Override
     public String toString() {
-        return diaSemana + " " + modulos;
+        return getDiaSemanaEspanol() + " " + modulos;
     }
 }
 

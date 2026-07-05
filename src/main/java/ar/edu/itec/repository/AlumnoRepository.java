@@ -2,6 +2,7 @@ package ar.edu.itec.repository;
 
 import ar.edu.itec.model.Alumno;
 import ar.edu.itec.model.AlumnoInscripto;
+import ar.edu.itec.model.ComisionMateria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,5 +70,11 @@ public class AlumnoRepository {
 
     public List<AlumnoInscripto> buscarTodasLasInscripcionesComision() {
         return new ArrayList<>(inscripcionesComision);
+    }
+
+    public List<AlumnoInscripto> buscarInscripcionesPorComision(ComisionMateria comision) {
+        return inscripcionesComision.stream()
+                .filter(ic -> ic.getComision().equals(comision))
+                .collect(Collectors.toList());
     }
 }
