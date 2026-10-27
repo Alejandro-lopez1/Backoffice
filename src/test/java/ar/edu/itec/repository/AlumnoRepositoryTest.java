@@ -14,43 +14,32 @@ class AlumnoRepositoryTest {
     @BeforeEach
     void setUp() {
         repository = new AlumnoRepository();
-        alumno = new Alumno("Lucas", "Giorgi", "40123456", "lucas@mail.com", "LEG-001");
+        alumno = new Alumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 
     @Test
-    void guardarYBuscarPorDocumento() {
+    void guardarYBuscarPorDni() {
         repository.guardar(alumno);
-        assertTrue(repository.buscarPorDocumento("40123456").isPresent());
-        assertEquals(alumno, repository.buscarPorDocumento("40123456").get());
+        assertTrue(repository.buscarPorDni("50000001").isPresent());
+        assertEquals(alumno, repository.buscarPorDni("50000001").get());
     }
 
     @Test
-    void buscarPorDocumentoInexistente() {
-        assertTrue(repository.buscarPorDocumento("99999999").isEmpty());
-    }
-
-    @Test
-    void buscarPorLegajo() {
-        repository.guardar(alumno);
-        assertTrue(repository.buscarPorLegajo("LEG-001").isPresent());
-    }
-
-    @Test
-    void buscarPorLegajoInexistente() {
-        assertTrue(repository.buscarPorLegajo("LEG-999").isEmpty());
+    void buscarPorDniInexistente() {
+        assertTrue(repository.buscarPorDni("00000000").isEmpty());
     }
 
     @Test
     void buscarPorNombre() {
         repository.guardar(alumno);
-        List<Alumno> r = repository.buscarPorNombre("Lucas");
+        List<Alumno> r = repository.buscarPorNombre("Zoe");
         assertEquals(1, r.size());
     }
 
     @Test
     void buscarPorApellido() {
         repository.guardar(alumno);
-        List<Alumno> r = repository.buscarPorNombre("Giorgi");
+        List<Alumno> r = repository.buscarPorNombre("Prueba");
         assertEquals(1, r.size());
     }
 
@@ -62,24 +51,15 @@ class AlumnoRepositoryTest {
 
     @Test
     void buscarTodos() {
+        int cantidadInicial = repository.buscarTodos().size();
         repository.guardar(alumno);
-        repository.guardar(new Alumno("Axel", "Almada", "41234567", null, "LEG-002"));
-        assertEquals(2, repository.buscarTodos().size());
-    }
-
-    @Test
-    void guardarInscripcionCarrera() {
-        Carrera c = new Carrera("TSD", "Tecnicatura");
-        PlanEstudio p = new PlanEstudio(c, 2024);
-        AlumnoCarrera ac = new AlumnoCarrera(alumno, c, p);
-        repository.guardarInscripcionCarrera(ac);
-        assertTrue(repository.existeInscripcionCarrera(alumno, "TSD"));
-        assertEquals(1, repository.buscarInscripcionesCarreraPorAlumno(alumno).size());
+        repository.guardar(new Alumno("Axel", "Almada", "50000002", null, "3764000002"));
+        assertEquals(cantidadInicial + 2, repository.buscarTodos().size());
     }
 
     @Test
     void guardarInscripcionComision() {
-        ComisionMateria com = new ComisionMateria("COM-001", "Programación I");
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
         AlumnoInscripto ai = new AlumnoInscripto(alumno, com);
         repository.guardarInscripcionComision(ai);
         assertTrue(repository.existeInscripcionComision(alumno, "COM-001"));

@@ -13,82 +13,60 @@ class AlumnoServiceTest {
 
     private AlumnoService service;
     private Alumno alumno;
-    private Carrera carrera;
-    private PlanEstudio plan;
 
     @BeforeEach
     void setUp() {
         service = new AlumnoService(new AlumnoRepository());
-        alumno = service.registrarAlumno("Lucas", "Giorgi", "40123456", "lucas@mail.com", "LEG-001");
-        carrera = new Carrera("TSD", "Tecnicatura en Desarrollo de Software");
-        plan = new PlanEstudio(carrera, 2024);
+        alumno = service.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 
     @Test
     void registrarAlumno() {
-        assertEquals("Lucas", alumno.getNombre());
+        assertEquals("Zoe", alumno.getNombre());
     }
 
     @Test
-    void registrarAlumnoDocumentoDuplicadoLanzaExcepcion() {
+    void registrarAlumnoDniDuplicadoLanzaExcepcion() {
         assertThrows(IllegalArgumentException.class, () ->
-                service.registrarAlumno("Otro", "Nombre", "40123456", "otro@mail.com", "LEG-999"));
+                service.registrarAlumno("Otro", "Nombre", "50000001", "otro@mail.com", "3764000009"));
     }
 
     @Test
-    void registrarAlumnoLegajoDuplicadoLanzaExcepcion() {
+    void registrarAlumnoConDniDeDatosInicialesLanzaExcepcion() {
         assertThrows(IllegalArgumentException.class, () ->
-                service.registrarAlumno("Otro", "Nombre", "99999999", "otro@mail.com", "LEG-001"));
+                service.registrarAlumno("Otro", "Nombre", "40123456", "otro@mail.com", "3764000009"));
     }
 
     @Test
-    void buscarAlumnoPorDocumento() {
-        List<Alumno> r = service.buscarAlumno("40123456");
+    void buscarAlumnoPorDni() {
+        List<Alumno> r = service.buscarAlumno("50000001");
         assertEquals(1, r.size());
         assertEquals(alumno, r.get(0));
     }
 
     @Test
-    void buscarAlumnoPorLegajo() {
-        List<Alumno> r = service.buscarAlumno("LEG-001");
-        assertEquals(1, r.size());
-    }
-
-    @Test
     void buscarAlumnoPorNombre() {
-        List<Alumno> r = service.buscarAlumno("Lucas");
+        List<Alumno> r = service.buscarAlumno("Zoe");
         assertEquals(1, r.size());
     }
 
     @Test
     void buscarAlumnoCriterioVacioRetornaTodos() {
-        service.registrarAlumno("Axel", "Almada", "41234567", null, "LEG-002");
-        assertEquals(2, service.buscarAlumno("").size());
+        int cantidadInicial = service.buscarAlumno("").size();
+        service.registrarAlumno("Axel", "Almada", "50000002", null, "3764000002");
+        assertEquals(cantidadInicial + 1, service.buscarAlumno("").size());
     }
 
     @Test
     void buscarAlumnoNullRetornaTodos() {
-        service.registrarAlumno("Axel", "Almada", "41234567", null, "LEG-002");
-        assertEquals(2, service.buscarAlumno(null).size());
-    }
-
-    @Test
-    void inscribirAlumnoCarrera() {
-        AlumnoCarrera ac = service.inscribirAlumnoCarrera(alumno, carrera, plan);
-        assertNotNull(ac);
-        assertEquals(carrera, ac.getCarrera());
-    }
-
-    @Test
-    void inscribirAlumnoCarreraDuplicadoLanzaExcepcion() {
-        service.inscribirAlumnoCarrera(alumno, carrera, plan);
-        assertThrows(IllegalArgumentException.class, () ->
-                service.inscribirAlumnoCarrera(alumno, carrera, plan));
+        int cantidadInicial = service.buscarAlumno(null).size();
+        service.registrarAlumno("Axel", "Almada", "50000002", null, "3764000002");
+        assertEquals(cantidadInicial + 1, service.buscarAlumno(null).size());
     }
 
     @Test
     void inscribirAlumnoComision() {
-        ComisionMateria com = new ComisionMateria("COM-001", "Programación I");
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
         AlumnoInscripto ai = service.inscribirAlumnoComision(alumno, com);
         assertNotNull(ai);
         assertEquals(com, ai.getComision());
@@ -96,7 +74,7 @@ class AlumnoServiceTest {
 
     @Test
     void inscribirAlumnoComisionDuplicadoLanzaExcepcion() {
-        ComisionMateria com = new ComisionMateria("COM-001", "Programación I");
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
         service.inscribirAlumnoComision(alumno, com);
         assertThrows(IllegalArgumentException.class, () ->
                 service.inscribirAlumnoComision(alumno, com));
@@ -110,26 +88,19 @@ class AlumnoServiceTest {
         HorarioClase h2 = new HorarioClase(DayOfWeek.MONDAY);
         h2.agregarModulo(new ModuloHorario(1, LocalTime.of(19, 0), LocalTime.of(21, 0)));
 
-        ComisionMateria com1 = new ComisionMateria("COM-001", "Programación I");
+        ComisionMateria com1 = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
         com1.agregarHorario(h1);
         service.inscribirAlumnoComision(alumno, com1);
 
-        ComisionMateria com2 = new ComisionMateria("COM-002", "Programación I");
+        ComisionMateria com2 = new ComisionMateria("COM-002", new Materia("Programación II"), null, null);
         com2.agregarHorario(h2);
         assertThrows(IllegalArgumentException.class, () ->
                 service.inscribirAlumnoComision(alumno, com2));
     }
 
     @Test
-    void obtenerCarrerasDeAlumno() {
-        service.inscribirAlumnoCarrera(alumno, carrera, plan);
-        List<AlumnoCarrera> carreras = service.obtenerCarrerasDeAlumno(alumno);
-        assertEquals(1, carreras.size());
-    }
-
-    @Test
     void obtenerComisionesDeAlumno() {
-        ComisionMateria com = new ComisionMateria("COM-001", "Programación I");
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
         service.inscribirAlumnoComision(alumno, com);
         List<AlumnoInscripto> comisiones = service.obtenerComisionesDeAlumno(alumno);
         assertEquals(1, comisiones.size());
