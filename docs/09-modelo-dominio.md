@@ -2,6 +2,8 @@
 
 ## 1. Diagrama de clases
 
+> La imagen [`diagramas/backoffice-itec.jpg`](diagramas/backoffice-itec.jpg) es el diagrama original de pizarrón. El diagrama Mermaid de esta sección refleja el código actual y debe tomarse como la referencia vigente del modelo.
+
 ```mermaid
 classDiagram
     class Alumno {
