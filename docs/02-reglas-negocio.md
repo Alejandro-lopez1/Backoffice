@@ -42,7 +42,7 @@
 | RNF-01 | Persistencia de datos entre ejecuciones | ❌ No cumple | Repositorios en memoria; se pierde todo al cerrar. |
 | RNF-02 | Autenticación y autorización por rol | ❌ No cumple | Un solo menú sin login. |
 | RNF-03 | Validación de entradas con mensajes claros en español | ⚠️ Parcial | Los modelos/servicios validan; la vista captura `IllegalArgumentException`. La lectura de enteros inválidos devuelve `-1` y muestra "Opción inválida". |
-| RNF-04 | Cobertura automatizada de las funciones principales | ⚠️ Parcial | 105 pruebas, 14 clases. Sin pruebas para el servicio de asistencia. |
+| RNF-04 | Cobertura automatizada de las funciones principales | ⚠️ Parcial | 120 casos ejecutados, 14 clases. Sin pruebas para el servicio de asistencia. |
 | RNF-05 | Codificación y presentación correcta de acentos | ⚠️ Parcial | Algunos archivos fuente tienen codificación mixta y la consola de Windows muestra caracteres corruptos (`Opci��n`). |
 | RNF-06 | Portabilidad | ✅ | Java 17; ejecutable en cualquier SO con JDK. |
 | RNF-07 | Facilidad de uso en consola | ⚠️ Parcial | Menús numerados y mensajes guía; no hay confirmación antes de eliminar. |

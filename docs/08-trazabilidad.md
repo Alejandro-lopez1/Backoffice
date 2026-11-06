@@ -42,24 +42,25 @@ Relacionar cada historia de usuario con sus criterios de aceptación, el proceso
 
 ### 3.1 Inventario
 
-| Clase de prueba | Métodos | Qué cubre |
-|---|---|---|
-| `AlumnoTest` | 8 | Validaciones y contrato de `Alumno` |
-| `AlumnoInscriptoTest` | 9 | Inscripción, asistencias, porcentaje y regularidad |
-| `AsistenciaTest` | 9 | Fecha, presente, fecha futura, comparación |
-| `CarreraTest` | 6 | Validaciones de `Carrera` |
-| `ComisionMateriaTest` | 10 | Comisión, horarios, superposición |
-| `HorarioClaseTest` | 10 | Módulos y choques de horario |
-| `ModuloHorarioTest` | 11 | Validación de horas y superposición |
-| `PlanEstudioTest` | 4 | Validaciones de plan |
-| `AlumnoRepositoryTest` | 7 | Alta, búsquedas e inscripciones |
-| `AlumnoServiceTest` | 11 | Registro, búsquedas, inscripción y comisiones |
-| `ExamenServiceTest` | 5 | Alta con descripción, rechazo de vacía, búsqueda, modificación y baja |
-| `NotaServiceTest` | 5 | Alta válida, rango 1-10, modificación, búsqueda y baja |
-| `ComisionRepositoryTest` | 4 | Filtro exacto por materia y búsqueda por código |
-| `AlumnoControllerTest` | 3 | Inscripción con comisión real y disponibilidad para notas |
+| Clase de prueba | Métodos (`@Test` + `@ParameterizedTest`) | Casos ejecutados | Qué cubre |
+|---|---|---|---|
+| `AlumnoTest` | 8 | 11 | Validaciones y contrato de `Alumno` |
+| `AlumnoInscriptoTest` | 9 | 9 | Inscripción, asistencias, porcentaje y regularidad |
+| `AsistenciaTest` | 9 | 9 | Fecha, presente, fecha futura, comparación |
+| `CarreraTest` | 6 | 6 | Validaciones de `Carrera` |
+| `ComisionMateriaTest` | 10 | 10 | Comisión, horarios, superposición |
+| `HorarioClaseTest` | 10 | 10 | Módulos y choques de horario |
+| `ModuloHorarioTest` | 11 | 11 | Validación de horas y superposición |
+| `PlanEstudioTest` | 4 | 4 | Validaciones de plan |
+| `AlumnoRepositoryTest` | 13 | 13 | Alta, búsquedas e inscripciones |
+| `AlumnoServiceTest` | 18 | 18 | Registro, búsquedas, inscripción y comisiones |
+| `ExamenServiceTest` | 5 | 5 | Alta con descripción, rechazo de vacía, búsqueda, modificación y baja |
+| `NotaServiceTest` | 5 | 5 | Alta válida, rango 1-10, modificación, búsqueda y baja |
+| `ComisionRepositoryTest` | 4 | 4 | Filtro exacto por materia y búsqueda por código |
+| `AlumnoControllerTest` | 5 | 5 | Inscripción con comisión real y disponibilidad para notas |
+| **Total** | **117** | **120** | 14 clases de prueba |
 
-**Total:** 105 casos ejecutados (102 métodos, algunos parametrizados).
+**Total:** 120 casos ejecutados (`mvn test`: 0 fallidos, 0 omitidos). La diferencia entre 117 métodos y 120 casos proviene de `AlumnoTest`: sus 3 `@ParameterizedTest` con `@NullAndEmptySource` ejecutan 2 casos cada uno.
 
 ### 3.2 Cobertura por módulo
 
