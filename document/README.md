@@ -28,6 +28,10 @@ La documentación describe el sistema **tal como está implementado en el códig
 | [08 — Trazabilidad](08-trazabilidad.md) | HU ↔ CA ↔ DFD ↔ código ↔ tests |
 | [09 — Modelo de dominio](09-modelo-dominio.md) | Diagrama UML de clases y relaciones |
 | [10 — Manual de uso](10-manual-uso.md) | Recorrido del menú consola y datos iniciales |
+| 📋 [11 — Arquitectura](11-arquitectura.md) | Arquitectura en capas (diagrama pendiente) |
+| 📋 [12 — Diagrama de secuencia](12-diagrama-secuencia.md) | Interacción entre capas en los flujos principales (diagrama pendiente) |
+| 📋 [13 — Diagrama de estados](13-diagrama-estados.md) | Estados y transiciones del dominio (diagrama pendiente) |
+| 📋 [14 — Modelo de datos](14-modelo-datos.md) | Entidades, claves y relaciones de la persistencia en memoria (diagrama pendiente) |
 
 ## Convenciones de identificación
 
