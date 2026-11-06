@@ -39,7 +39,12 @@ El sistema está orientado a un uso administrativo interno: una persona opera el
 | Cálculo de regularidad y estado de cursada | `EstadoCursada` existe pero no se usa |
 | Cálculo de promedio | No implementado |
 | Validación de correlatividades | No implementado |
-| Emisión de constancias o reportes exportables | No implementado |
+| Emisión de constancias | No implementado |
+| Reportes exportables PDF/Excel/CSV | No implementado en el MVP |
+| Actas de cierre | No implementado en el MVP |
+| Auditoría de operaciones (AuditLog) | No implementado en el MVP |
+| Justificación de inasistencias con tres estados (PRESENTE/AUSENTE/JUSTIFICADA) | No implementado en el MVP |
+| Script SQL / base de datos | No implementado en el MVP |
 | Interfaz web, escritorio o API | No implementado |
 | Notificaciones por email | No implementado |
 
