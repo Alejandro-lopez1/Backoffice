@@ -44,7 +44,7 @@ La documentación describe el sistema **tal como está implementado en el códig
 
 ## Diagramas
 
-Los DFD están en `docs/diagramas/` en dos formatos:
+Los DFD están en `document/diagramas/` en dos formatos:
 
 - `dfd-0.svg` / `dfd-1.svg`: versión renderizada que se muestra en los documentos.
 - `dfd-0.drawio` / `dfd-1.drawio`: fuente editable para diagrams.net (draw.io).

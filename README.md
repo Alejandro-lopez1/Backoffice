@@ -6,7 +6,7 @@ El objetivo del proyecto es centralizar la administración académica, permitien
 
 ## Documentación
 
-La documentación funcional y de análisis (alcance, actores, reglas, 24 historias con implementación en código y 5 de backlog, criterios de aceptación, DFD 0 y DFD 1 en Gane-Sarson, diccionario de datos, trazabilidad, modelo de dominio y manual de uso) está en [`docs/`](docs/README.md).
+La documentación funcional y de análisis (alcance, actores, reglas, 24 historias con implementación en código y 5 de backlog, criterios de aceptación, DFD 0 y DFD 1 en Gane-Sarson, diccionario de datos, trazabilidad, modelo de dominio y manual de uso) está en [`document/`](document/README.md).
 
 > El manual y la trazabilidad marcan las limitaciones reales del código: no hay persistencia, no hay autenticación y la nota no guarda una referencia directa al alumno.
 
@@ -53,7 +53,7 @@ La documentación funcional y de análisis (alcance, actores, reglas, 24 histori
 
 ## Fuera de alcance del MVP
 
-Las siguientes funciones están documentadas como backlog y **no están implementadas** en el código actual. El detalle está en [`docs/00-alcance.md`](docs/00-alcance.md).
+Las siguientes funciones están documentadas como backlog y **no están implementadas** en el código actual. El detalle está en [`document/00-alcance.md`](document/00-alcance.md).
 
 - Cálculo de regularidad y estado de cursada.
 - Cálculo de promedio académico.
@@ -174,7 +174,7 @@ src/
     ├── repository/
     ├── service/
     └── controller/
-docs/
+document/
 ```
 
 ## Equipo de Desarrollo
