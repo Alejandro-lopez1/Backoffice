@@ -4,6 +4,12 @@ Sistema de gestión académica desarrollado en Java para el Instituto Tecnológi
 
 El objetivo del proyecto es centralizar la administración académica, permitiendo gestionar alumnos, profesores, materias, comisiones, asistencias y calificaciones, aplicando reglas de negocio propias del ámbito educativo.
 
+## Documentación
+
+La documentación funcional y de análisis (alcance, actores, reglas, 24 historias con implementación en código y 5 de backlog, criterios de aceptación, DFD 0 y DFD 1 en Gane-Sarson, diccionario de datos, trazabilidad, modelo de dominio y manual de uso) está en [`docs/`](docs/README.md).
+
+> El manual y la trazabilidad marcan las limitaciones reales del código; por ejemplo, la falta de persistencia y la ausencia de referencia al alumno en las notas.
+
 ## Objetivos
 
 - Gestionar alumnos y carreras.

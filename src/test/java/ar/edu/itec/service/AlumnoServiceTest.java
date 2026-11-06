@@ -105,4 +105,58 @@ class AlumnoServiceTest {
         List<AlumnoInscripto> comisiones = service.obtenerComisionesDeAlumno(alumno);
         assertEquals(1, comisiones.size());
     }
+
+    @Test
+    void modificarAlumnoActualizaSusDatos() {
+        Alumno actualizado = service.modificarAlumno(
+                "50000001", "Zoe Editada", "Prueba Editada", "50000099", "editado@mail.com", "3764111111");
+
+        assertEquals("Zoe Editada", actualizado.getNombre());
+        assertEquals("Prueba Editada", actualizado.getApellido());
+        assertEquals("50000099", actualizado.getDni());
+        assertEquals("editado@mail.com", actualizado.getEmail());
+        assertEquals("3764111111", actualizado.getTelefono());
+        assertTrue(service.buscarAlumno("50000001").isEmpty());
+        assertEquals(actualizado, service.obtenerAlumno("50000099"));
+    }
+
+    @Test
+    void modificarAlumnoConDniDuplicadoLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.modificarAlumno("50000001", "Zoe", "Prueba", "40123456", "zoe@mail.com", "3764000001"));
+    }
+
+    @Test
+    void modificarAlumnoInexistenteLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.modificarAlumno("99999999", "Zoe", "Prueba", "99999999", "zoe@mail.com", "3764000001"));
+    }
+
+    @Test
+    void modificarAlumnoConCamposObligatoriosVaciosLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () ->
+                service.modificarAlumno("50000001", " ", "Prueba", "50000001", "zoe@mail.com", "3764000001"));
+    }
+
+    @Test
+    void modificarAlumnoConservaSusInscripciones() {
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
+        service.inscribirAlumnoComision(alumno, com);
+
+        service.modificarAlumno("50000001", "Zoe", "Prueba", "50000099", "zoe@mail.com", "3764000001");
+
+        assertEquals(1, service.obtenerComisionesDeAlumno(alumno).size());
+    }
+
+    @Test
+    void eliminarAlumnoLoQuitaDelPadron() {
+        service.eliminarAlumno("50000001");
+
+        assertTrue(service.buscarAlumno("50000001").isEmpty());
+    }
+
+    @Test
+    void eliminarAlumnoInexistenteLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () -> service.eliminarAlumno("99999999"));
+    }
 }

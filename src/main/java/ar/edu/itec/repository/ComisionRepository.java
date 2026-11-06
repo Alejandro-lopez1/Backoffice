@@ -84,8 +84,13 @@ public class ComisionRepository {
     }
 
     public List<ComisionMateria> buscarPorMateria(String nombreMateria) {
+        if (nombreMateria == null || nombreMateria.isBlank()) {
+            return List.of();
+        }
+        String normalizado = nombreMateria.trim();
         return comisiones.stream()
-                .filter(c -> c.getMateria().getNombre().toLowerCase().contains(nombreMateria.toLowerCase()))
+                .filter(c -> c.getMateria() != null
+                        && c.getMateria().getNombre().equalsIgnoreCase(normalizado))
                 .toList();
     }
 

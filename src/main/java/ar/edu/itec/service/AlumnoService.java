@@ -34,6 +34,42 @@ public class AlumnoService {
         return repository.buscarPorNombre(criterio);
     }
 
+    public Alumno obtenerAlumno(String dni) {
+        if (dni == null || dni.isBlank()) {
+            throw new IllegalArgumentException("El DNI no puede ser nulo o vacío");
+        }
+        return repository.buscarPorDni(dni.trim())
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró alumno con DNI " + dni));
+    }
+
+    public Alumno modificarAlumno(String dniOriginal, String nombre, String apellido,
+                                   String nuevoDni, String email, String telefono) {
+        Alumno alumno = obtenerAlumno(dniOriginal);
+
+        String nombreFinal = validarTextoObligatorio(nombre, "El nombre");
+        String apellidoFinal = validarTextoObligatorio(apellido, "El apellido");
+        String dniFinal = validarTextoObligatorio(nuevoDni, "El DNI");
+
+        boolean cambiaDni = !dniFinal.equalsIgnoreCase(alumno.getDni());
+        if (cambiaDni && repository.buscarPorDni(dniFinal).isPresent()) {
+            throw new IllegalArgumentException("Ya existe un alumno con el DNI " + dniFinal);
+        }
+
+        alumno.setNombre(nombreFinal);
+        alumno.setApellido(apellidoFinal);
+        alumno.setDni(dniFinal);
+        alumno.setEmail(email);
+        alumno.setTelefono(telefono);
+        return repository.actualizar(dniOriginal, alumno);
+    }
+
+    public void eliminarAlumno(String dni) {
+        Alumno alumno = obtenerAlumno(dni);
+        if (!repository.eliminar(alumno.getDni())) {
+            throw new IllegalArgumentException("No se encontró alumno con DNI " + dni);
+        }
+    }
+
     public AlumnoInscripto inscribirAlumnoComision(Alumno alumno, ComisionMateria comision) {
         if (repository.existeInscripcionComision(alumno, comision.getCodigo())) {
             throw new IllegalArgumentException(
@@ -53,5 +89,12 @@ public class AlumnoService {
 
     public List<AlumnoInscripto> obtenerComisionesDeAlumno(Alumno alumno) {
         return repository.buscarInscripcionesComisionPorAlumno(alumno);
+    }
+
+    private String validarTextoObligatorio(String valor, String descripcion) {
+        if (valor == null || valor.isBlank()) {
+            throw new IllegalArgumentException(descripcion + " no puede ser nulo o vacío");
+        }
+        return valor.trim();
     }
 }

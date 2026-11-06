@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5F6368"/></marker></defs>
+<rect width="1200" height="620" fill="white"/>
+<text x="600.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="bold" text-anchor="middle" fill="#202124">DFD 0 - Backoffice Academico ITEC (diagrama de contexto)</text>
+<rect x="60" y="100" width="210" height="70" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6"/>
+<text x="165.0" y="126.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E1</text>
+<text x="165.0" y="141.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Administrativo /</text>
+<text x="165.0" y="156.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Secretaria</text>
+<rect x="60" y="285" width="210" height="70" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6"/>
+<text x="165.0" y="319.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E2</text>
+<text x="165.0" y="334.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Docente</text>
+<rect x="60" y="470" width="210" height="70" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="165.0" y="504.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E3</text>
+<text x="165.0" y="519.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Alumno</text>
+<rect x="470" y="190" width="270" height="150" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="605.0" y="256.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">0</text>
+<text x="605.0" y="271.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Backoffice Academico</text>
+<text x="605.0" y="286.5" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">ITEC</text>
+<path d="M 270 130 L 470 235" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="266.0" y="141" width="228.00000000000003" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="380" y="152" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">datos de alumno, inscripcion y consultas</text>
+<path d="M 470 265 L 270 165" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="251.5" y="229" width="217.00000000000003" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="360" y="240" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">confirmaciones, listados y constancias</text>
+<path d="M 270 300 L 470 270" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="287.25" y="261" width="145.5" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="360" y="272" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">asistencia, examen y nota</text>
+<path d="M 470 295 L 270 335" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="292.75" y="319" width="134.5" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="360" y="330" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">constancias de registro</text>
+<path d="M 270 495 L 510 340" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<rect x="297.25" y="424" width="145.5" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="370" y="435" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#9AA0A6">identificacion del alumno</text>
+<path d="M 540 340 L 270 525" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<rect x="335.25" y="459" width="189.50000000000003" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="430" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#9AA0A6">situacion academica (planificado)</text>
+<line x1="470" y1="520" x2="498" y2="520" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="506" y="523" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="start" fill="#202124">Flujo implementado</text>
+<line x1="470" y1="538" x2="498" y2="538" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="506" y="541" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="start" fill="#202124">Flujo planificado (backlog)</text>
+</svg>

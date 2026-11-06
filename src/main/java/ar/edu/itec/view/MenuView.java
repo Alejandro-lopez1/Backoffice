@@ -35,7 +35,8 @@ public class MenuView {
         
         AlumnoRepository alumnoRepository = new AlumnoRepository();
         AlumnoService alumnoService = new AlumnoService(alumnoRepository);
-        AlumnoController alumnoController = new AlumnoController(alumnoService, alumnoRepository, carreraRepository);
+        AlumnoController alumnoController = new AlumnoController(
+                alumnoService, alumnoRepository, carreraRepository, comisionRepository);
 
         ExamenRepository examenRepository = new ExamenRepository();
         ExamenService examenService = new ExamenService(examenRepository);

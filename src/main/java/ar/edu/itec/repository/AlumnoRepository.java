@@ -50,6 +50,40 @@ public class AlumnoRepository {
         return new ArrayList<>(alumnos);
     }
 
+    public Alumno actualizar(Alumno alumno) {
+        if (alumno == null) {
+            throw new IllegalArgumentException("El alumno a actualizar no puede ser null");
+        }
+        return actualizar(alumno.getDni(), alumno);
+    }
+
+    public Alumno actualizar(String dniOriginal, Alumno alumno) {
+        if (alumno == null) {
+            throw new IllegalArgumentException("El alumno a actualizar no puede ser null");
+        }
+        if (dniOriginal == null || dniOriginal.isBlank()) {
+            throw new IllegalArgumentException("El DNI original no puede ser nulo o vacío");
+        }
+        for (int i = 0; i < alumnos.size(); i++) {
+            Alumno registrado = alumnos.get(i);
+            if (registrado == alumno || registrado.getDni().equalsIgnoreCase(dniOriginal)) {
+                alumnos.set(i, alumno);
+                return alumno;
+            }
+        }
+        throw new IllegalArgumentException("No existe un alumno con DNI " + dniOriginal);
+    }
+
+    public boolean eliminar(String dni) {
+        Optional<Alumno> alumno = buscarPorDni(dni);
+        if (alumno.isEmpty()) {
+            return false;
+        }
+        alumnos.remove(alumno.get());
+        inscripcionesComision.removeIf(ic -> ic.getAlumno().equals(alumno.get()));
+        return true;
+    }
+
     // --- AlumnoInscripto ---
 
     public void guardarInscripcionComision(AlumnoInscripto inscripcion) {

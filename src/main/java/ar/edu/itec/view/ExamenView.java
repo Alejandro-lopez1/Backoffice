@@ -65,9 +65,10 @@ public class ExamenView {
             ComisionMateria comision = seleccionarComision(materia);
             LocalDate fecha = pedirFecha("Fecha (dd-MM-aaaa): ");
             String nombre = pedirTexto("Título del examen: ");
+            String descripcion = pedirTexto("Descripción: ");
             TipoEvaluacion tipoEvaluacion = pedirTipoEvaluacion();
             Examen examen = examenController.registrarExamen(
-                    comision, nombre, "", fecha, tipoEvaluacion);
+                    comision, nombre, descripcion, fecha, tipoEvaluacion);
             System.out.println("\n--- EXAMEN REGISTRADO ---");
             mostrarExamen(examen);
         } catch (IllegalArgumentException e) {

@@ -65,4 +65,57 @@ class AlumnoRepositoryTest {
         assertTrue(repository.existeInscripcionComision(alumno, "COM-001"));
         assertEquals(1, repository.buscarInscripcionesComisionPorAlumno(alumno).size());
     }
+
+    @Test
+    void actualizarAlumnoReemplazaLosDatos() {
+        repository.guardar(alumno);
+        alumno.setNombre("Zoe Editada");
+        alumno.setEmail("nuevo@mail.com");
+
+        Alumno actualizado = repository.actualizar(alumno);
+
+        assertEquals("Zoe Editada", actualizado.getNombre());
+        assertEquals("nuevo@mail.com", repository.buscarPorDni("50000001").orElseThrow().getEmail());
+    }
+
+    @Test
+    void actualizarAlumnoConNuevoDniLoBuscaPorElDniOriginal() {
+        repository.guardar(alumno);
+        alumno.setDni("50000099");
+
+        repository.actualizar("50000001", alumno);
+
+        assertTrue(repository.buscarPorDni("50000001").isEmpty());
+        assertTrue(repository.buscarPorDni("50000099").isPresent());
+    }
+
+    @Test
+    void actualizarAlumnoInexistenteLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () -> repository.actualizar(alumno));
+    }
+
+    @Test
+    void eliminarAlumnoLoQuitaDelPadron() {
+        repository.guardar(alumno);
+
+        assertTrue(repository.eliminar("50000001"));
+        assertTrue(repository.buscarPorDni("50000001").isEmpty());
+    }
+
+    @Test
+    void eliminarAlumnoTambienEliminaSusInscripciones() {
+        repository.guardar(alumno);
+        ComisionMateria com = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
+        repository.guardarInscripcionComision(new AlumnoInscripto(alumno, com));
+
+        repository.eliminar("50000001");
+
+        assertTrue(repository.buscarInscripcionesComisionPorAlumno(alumno).isEmpty());
+        assertTrue(repository.buscarTodasLasInscripcionesComision().isEmpty());
+    }
+
+    @Test
+    void eliminarAlumnoInexistenteRetornaFalse() {
+        assertFalse(repository.eliminar("00000000"));
+    }
 }

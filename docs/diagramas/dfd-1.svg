@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1020" viewBox="0 0 1500 1020">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5F6368"/></marker></defs>
+<rect width="1500" height="1020" fill="white"/>
+<text x="750.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="bold" text-anchor="middle" fill="#202124">DFD 1 - Sistema de Backoffice Academico (nivel 1)</text>
+<rect x="40" y="120" width="150" height="56" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6"/>
+<text x="115.0" y="147.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E1</text>
+<text x="115.0" y="162.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Administrativo</text>
+<rect x="40" y="430" width="150" height="56" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6"/>
+<text x="115.0" y="457.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E2</text>
+<text x="115.0" y="472.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Docente</text>
+<rect x="40" y="800" width="150" height="56" fill="#E8F0FE" stroke="#1A73E8" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="115.0" y="827.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">E3</text>
+<text x="115.0" y="842.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="normal" text-anchor="middle" fill="#202124">Alumno</text>
+<rect x="330" y="60" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="91.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">1.0</text>
+<text x="450.0" y="105.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Gestionar alumnos</text>
+<rect x="330" y="165" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="196.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">2.0</text>
+<text x="450.0" y="210.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Gestionar inscripciones</text>
+<rect x="330" y="270" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="301.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">3.0</text>
+<text x="450.0" y="315.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Gestionar asistencias</text>
+<rect x="330" y="375" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="406.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">4.0</text>
+<text x="450.0" y="420.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Gestionar examenes</text>
+<rect x="330" y="480" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="511.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">5.0</text>
+<text x="450.0" y="525.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Gestionar notas</text>
+<rect x="330" y="615" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6"/>
+<text x="450.0" y="646.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">6.0</text>
+<text x="450.0" y="660.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Generar consultas</text>
+<rect x="330" y="760" width="240" height="64" rx="18" ry="18" fill="#E6F4EA" stroke="#188038" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="450.0" y="784.5" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#202124">7.0</text>
+<text x="450.0" y="798.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">Consultar situacion</text>
+<text x="450.0" y="812.5" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#202124">academica</text>
+<path d="M 1280 50 L 1050 50 L 1050 94 L 1280 94" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 50 L 1050 50 L 1050 94 L 1280 94" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="50" x2="1060" y2="94" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="77.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D1  Alumnos</text>
+<path d="M 1280 140 L 1050 140 L 1050 184 L 1280 184" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 140 L 1050 140 L 1050 184 L 1280 184" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="140" x2="1060" y2="184" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="167.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D2  Inscripciones</text>
+<path d="M 1280 230 L 1050 230 L 1050 274 L 1280 274" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 230 L 1050 230 L 1050 274 L 1280 274" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="230" x2="1060" y2="274" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="257.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D3  Asistencias</text>
+<path d="M 1280 320 L 1050 320 L 1050 364 L 1280 364" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 320 L 1050 320 L 1050 364 L 1280 364" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="320" x2="1060" y2="364" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="347.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D4  Examenes</text>
+<path d="M 1280 410 L 1050 410 L 1050 454 L 1280 454" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 410 L 1050 410 L 1050 454 L 1280 454" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="410" x2="1060" y2="454" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="437.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D5  Notas</text>
+<path d="M 1280 500 L 1050 500 L 1050 544 L 1280 544" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 500 L 1050 500 L 1050 544 L 1280 544" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="500" x2="1060" y2="544" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="527.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D6  Comisiones</text>
+<path d="M 1280 590 L 1050 590 L 1050 634 L 1280 634" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 590 L 1050 590 L 1050 634 L 1280 634" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="590" x2="1060" y2="634" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="617.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D7  Planes de estudio</text>
+<path d="M 1280 680 L 1050 680 L 1050 724 L 1280 724" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 680 L 1050 680 L 1050 724 L 1280 724" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="680" x2="1060" y2="724" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="707.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D8  Carreras</text>
+<path d="M 1280 770 L 1050 770 L 1050 814 L 1280 814" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 770 L 1050 770 L 1050 814 L 1280 814" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="770" x2="1060" y2="814" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="797.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D9  Materias</text>
+<path d="M 1280 860 L 1050 860 L 1050 904 L 1280 904" fill="#FFF4E5" stroke="none"/>
+<path d="M 1280 860 L 1050 860 L 1050 904 L 1280 904" fill="none" stroke="#B06000" stroke-width="1.8"/>
+<line x1="1060" y1="860" x2="1060" y2="904" stroke="#B06000" stroke-width="1.2"/>
+<text x="1074" y="887.0" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="start" fill="#202124">D10  Profesores</text>
+<path d="M 190 138 L 260 138 L 260 92 L 330 92" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="214.0" y="95" width="96.0" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="262" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">datos / listados</text>
+<path d="M 190 150 L 300 150 L 300 197 L 330 197" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="230.0" y="139" width="140.0" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="300" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">inscripcion / constancia</text>
+<path d="M 190 162 L 280 162 L 280 647 L 330 647" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="191.0" y="589" width="118.00000000000001" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="250" y="600" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">criterios / reportes</text>
+<path d="M 190 448 L 260 448 L 260 302 L 330 302" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="197.75" y="379" width="68.5" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="232" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">asistencias</text>
+<path d="M 190 460 L 300 460 L 300 407 L 330 407" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="226.0" y="427" width="52.0" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="252" y="438" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">examenes</text>
+<path d="M 190 472 L 280 472 L 280 512 L 330 512" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="214.25" y="489" width="35.5" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="232" y="500" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#5F6368">notas</text>
+<path d="M 190 828 L 260 828 L 260 792 L 330 792" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="236.0" y="831" width="118.00000000000001" height="16" fill="white" opacity="0.88" rx="2"/>
+<text x="295" y="842" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="middle" fill="#9AA0A6">consulta / situacion</text>
+<path d="M 570 92.0 L 1050 72.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 197.0 L 1050 162.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 197.0 L 1050 72.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 197.0 L 1050 522.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 197.0 L 1050 612.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 302.0 L 1050 252.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 302.0 L 1050 72.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 407.0 L 1050 342.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 407.0 L 1050 522.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 512.0 L 1050 432.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 512.0 L 1050 162.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 512.0 L 1050 342.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 72.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 522.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 612.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 702.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 792.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 647.0 L 1050 882.0" fill="none" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 792.0 L 1050 72.0" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 792.0 L 1050 162.0" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 792.0 L 1050 252.0" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M 570 792.0 L 1050 432.0" fill="none" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<line x1="40" y1="930" x2="68" y2="930" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="76" y="933" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="start" fill="#202124">Flujo de lectura/escritura</text>
+<line x1="40" y1="948" x2="68" y2="948" stroke="#5F6368" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="76" y="951" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="start" fill="#202124">Flujo implementado</text>
+<line x1="40" y1="966" x2="68" y2="966" stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="76" y="969" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-weight="normal" text-anchor="start" fill="#202124">Flujo planificado (backlog)</text>
+</svg>
