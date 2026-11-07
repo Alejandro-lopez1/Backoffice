@@ -245,6 +245,8 @@ Entonces el sistema muestra un error y no elimina nada
 
 ### HU-10 · Registrar asistencia del día
 
+> **Estado:** ⚠️ parcial. La asistencia se persiste como `AsistenciaAlumno`, pero no se sincroniza con `AlumnoInscripto.asistencias`; el porcentaje de asistencia de la inscripción no se actualiza.
+
 **CA-HU10-1 · Registro de presente** *(menú)*
 ```gherkin
 Dado que hoy no existe asistencia para el documento 40123456
@@ -268,6 +270,8 @@ Entonces el sistema rechaza el registro
 
 ### HU-11 · Listar y buscar asistencias
 
+> **Estado:** ⚠️ parcial. El listado y la búsqueda leen solo `AsistenciaRepository` (`AsistenciaAlumno`); no reflejan la lista `Asistencia` de `AlumnoInscripto`.
+
 **CA-HU11-1 · Listado completo** *(menú)*
 ```gherkin
 Cuando selecciono "Listar asistencias"
@@ -287,6 +291,8 @@ Entonces el sistema muestra todas sus asistencias
 ```
 
 ### HU-12 · Modificar asistencia
+
+> **Estado:** ⚠️ parcial. La modificación afecta solo `AsistenciaAlumno`; la lista `Asistencia` de `AlumnoInscripto` queda desincronizada.
 
 **CA-HU12-1 · Corrección de estado** *(menú)*
 ```gherkin
@@ -316,6 +322,8 @@ Entonces el sistema muestra un error
 
 ### HU-13 · Eliminar asistencia
 
+> **Estado:** ⚠️ parcial. La baja elimina solo de `AsistenciaRepository`; no existe sincronización con `AlumnoInscripto`.
+
 **CA-HU13-1 · Baja exitosa** *(menú)*
 ```gherkin
 Dado una asistencia existente
@@ -334,6 +342,8 @@ Entonces el sistema muestra un error
 ## 5. Notas
 
 ### HU-14 · Registrar nota
+
+> **Estado:** ⚠️ parcial. `Nota` no guarda referencia al alumno; la relación solo existe en `AlumnoInscripto.notas`.
 
 **CA-HU14-1 · Nota válida** *(menú)*
 ```gherkin
@@ -366,6 +376,8 @@ Y no permite registrar la nota
 
 ### HU-15 · Listar y buscar notas
 
+> **Estado:** ⚠️ parcial. El listado no puede mostrar a qué alumno pertenece cada nota: `Nota` no guarda la referencia y `NotaRepository` no la reconstruye desde `AlumnoInscripto`.
+
 **CA-HU15-1 · Listado completo** *(menú)*
 ```gherkin
 Cuando selecciono "Listar notas"
@@ -391,6 +403,8 @@ Entonces el sistema lista todas las notas
 ```
 
 ### HU-16 · Modificar nota
+
+> **Estado:** ⚠️ parcial. La corrección se hace por ID y no permite identificar al alumno de la nota.
 
 **CA-HU16-1 · Corrección de valor** *(menú)*
 ```gherkin
@@ -419,6 +433,8 @@ Entonces el sistema muestra "No existe una nota con id ..."
 ```
 
 ### HU-17 · Eliminar nota
+
+> **Estado:** ⚠️ parcial. La baja no limpia la referencia que queda en `AlumnoInscripto.notas`.
 
 **CA-HU17-1 · Baja exitosa** *(menú)*
 ```gherkin

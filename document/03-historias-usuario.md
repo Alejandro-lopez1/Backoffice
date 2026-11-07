@@ -21,8 +21,8 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 |---|---|---|
 | Alumnos y padrón | HU-01 a HU-05 | 5 ✅ |
 | Exámenes | HU-06 a HU-09 | 4 ✅ |
-| Asistencias | HU-10 a HU-13 | 4 ✅ |
-| Notas | HU-14 a HU-17 | 4 ✅ |
+| Asistencias | HU-10 a HU-13 | 4 ⚠️ |
+| Notas | HU-14 a HU-17 | 4 ⚠️ |
 | Consultas | HU-18 a HU-24 | 7 ✅ |
 | Backlog | HU-25 a HU-29 | 5 📋 |
 
@@ -132,8 +132,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero registrar si un alumno estuvo presente o ausente en la fecha de hoy para llevar el control de asistencia.
 - **Reglas:** RN-06, RN-07, RN-08
 - **Datos:** documento del alumno, presente (S/N)
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AsistenciaView.registrarAsistencia`, `AlumnoAsistenciaService.registrarAsistencia`, `AsistenciaAlumno`
+- **Limitación:** la asistencia se guarda en `AsistenciaRepository` como `AsistenciaAlumno`, pero no se agrega a la lista `asistencias` de `AlumnoInscripto`; el porcentaje de asistencia de la inscripción no se actualiza.
 
 ### HU-11 · Listar y buscar asistencias
 - **Prioridad:** Should
@@ -141,8 +142,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero listar o buscar asistencias por ID o documento para revisar el historial.
 - **Reglas:** RN-16, RN-17
 - **Datos:** criterio
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoAsistenciaService.buscarAsistencias`, `AsistenciaRepository.buscarPorCriterio`
+- **Limitación:** el listado y la búsqueda leen solo `AsistenciaRepository` (`AsistenciaAlumno`); no reflejan la lista `Asistencia` de `AlumnoInscripto`.
 
 ### HU-12 · Modificar asistencia
 - **Prioridad:** Could
@@ -150,8 +152,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero corregir una asistencia para arreglar un error de carga.
 - **Reglas:** RN-06, RN-07, RN-08, RN-18
 - **Datos:** ID, documento, fecha, presente
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoAsistenciaService.modificarAsistencia`, `AsistenciaView.modificarAsistencia`
+- **Limitación:** la modificación afecta solo `AsistenciaAlumno`; la lista `Asistencia` de `AlumnoInscripto` queda desincronizada.
 
 ### HU-13 · Eliminar asistencia
 - **Prioridad:** Could
@@ -159,8 +162,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero eliminar una asistencia cargada por error.
 - **Reglas:** RN-18
 - **Datos:** ID
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoAsistenciaService.eliminarAsistencia`, `AsistenciaRepository.eliminar`
+- **Limitación:** la baja elimina solo de `AsistenciaRepository`; no existe sincronización con `AlumnoInscripto`.
 
 ---
 
@@ -172,11 +176,11 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero registrar la nota de un alumno en un examen para dejar constancia de su evaluación.
 - **Reglas:** RN-04, RN-05, RN-20
 - **Datos:** carrera, materia, comisión, alumno inscripto, examen, valor (1-10), observación (opcional)
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `NotaView.registrarNota`, `AlumnoNotaService.registrarNota`, `NotaRepository.guardar`, `AlumnoInscripto.agregarNota`, `AlumnoNotaServiceTest`
 - **Observaciones:**
   - La vista permite elegir carrera, materia, comisión, alumno inscripto y examen; solo aparecen los alumnos inscriptos en la comisión elegida.
-  - `Nota` guarda el examen, el valor, la observación y la fecha, pero **no guarda una referencia al alumno**. La relación con el alumno solo existe en la lista interna de `AlumnoInscripto`, por lo que al listar notas no se puede saber a qué alumno pertenecen.
+  - **Limitación:** `Nota` guarda el examen, el valor, la observación y la fecha, pero **no guarda una referencia al alumno**. La relación con el alumno solo existe en la lista interna de `AlumnoInscripto`, por lo que al listar notas no se puede saber a qué alumno pertenecen.
 
 ### HU-15 · Listar y buscar notas
 - **Prioridad:** Should
@@ -184,8 +188,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero listar o buscar notas por ID o nombre de examen para revisar las evaluaciones registradas.
 - **Reglas:** RN-16, RN-17
 - **Datos:** criterio
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoNotaService.buscarNotas`, `NotaRepository.buscarPorId`
+- **Limitación:** no se puede identificar al alumno de cada nota: `Nota` no guarda referencia y `NotaRepository` no reconstruye la relación desde `AlumnoInscripto`.
 
 ### HU-16 · Modificar nota
 - **Prioridad:** Could
@@ -193,8 +198,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero corregir el valor o la observación de una nota para reparar un error de carga.
 - **Reglas:** RN-04, RN-18, RN-19
 - **Datos:** ID, nuevo valor (opcional), observación
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoNotaService.modificarNota`, `NotaView.modificarNota`
+- **Limitación:** la nota se modifica por ID y no guarda el alumno, por lo que no se puede verificar ni mostrar a quién pertenece.
 
 ### HU-17 · Eliminar nota
 - **Prioridad:** Could
@@ -202,8 +208,9 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Historia:** Como docente, quiero eliminar una nota cargada por error.
 - **Reglas:** RN-18
 - **Datos:** ID
-- **Estado:** ✅
+- **Estado:** ⚠️
 - **Evidencia:** `AlumnoNotaService.eliminarNota`, `NotaRepository.eliminar`
+- **Limitación:** la baja elimina la nota de `NotaRepository`, pero deja la referencia en la lista `notas` de `AlumnoInscripto`.
 
 ---
 

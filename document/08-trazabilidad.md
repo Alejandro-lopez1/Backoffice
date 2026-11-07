@@ -17,14 +17,14 @@ Relacionar cada historia de usuario con sus criterios de aceptación, el proceso
 | HU-07 Listar/buscar exámenes | CA-HU07-1 a 4 | 4.0 | D4 | `ProfesorExamenServiceImpl.buscarExamenes`, `ExamenRepository.buscarPorCriterio` | `ProfesorExamenServiceTest.buscarExamenPorIdYPorNombre` | ✅ |
 | HU-08 Modificar examen | CA-HU08-1 a 2 | 4.0 | D4 | `ProfesorExamenServiceImpl.modificarExamen` | `ProfesorExamenServiceTest.modificarExamen` | ✅ |
 | HU-09 Eliminar examen | CA-HU09-1 a 2 | 4.0 | D4 | `ProfesorExamenServiceImpl.eliminarExamen` | `ProfesorExamenServiceTest.eliminarExamen` | ✅ |
-| HU-10 Registrar asistencia | CA-HU10-1 a 3 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.registrarAsistencia`, `AsistenciaAlumno` | `AlumnoAsistenciaServiceTest.registrarAsistenciaValida`, `AsistenciaTest` (modelo) | ✅ |
-| HU-11 Listar/buscar asistencias | CA-HU11-1 a 3 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.buscarAsistencias`, `AsistenciaRepository.buscarPorCriterio` | `AlumnoAsistenciaServiceTest.buscarAsistenciasPorDocumentoYPorId` | ✅ |
-| HU-12 Modificar asistencia | CA-HU12-1 a 4 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.modificarAsistencia` | `AlumnoAsistenciaServiceTest.modificarAsistenciaActualizaLosDatos`, `AsistenciaTest` (fecha futura) | ✅ |
-| HU-13 Eliminar asistencia | CA-HU13-1 a 2 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.eliminarAsistencia` | `AlumnoAsistenciaServiceTest.eliminarAsistenciaExistenteEInexistente` | ✅ |
-| HU-14 Registrar nota | CA-HU14-1 a 4 | 5.0 | D2, D4, D5 | `AlumnoNotaServiceImpl.registrarNota`, `AlumnoInscripto.agregarNota`, `NotaView.registrarNota` | `AlumnoNotaServiceTest` | ✅ |
-| HU-15 Listar/buscar notas | CA-HU15-1 a 4 | 5.0 | D5 | `AlumnoNotaServiceImpl.buscarNotas`, `NotaRepository.buscarPorId` | `AlumnoNotaServiceTest.buscarNotaPorIdYPorNombreDeExamen` | ✅ |
-| HU-16 Modificar nota | CA-HU16-1 a 4 | 5.0 | D5 | `AlumnoNotaServiceImpl.modificarNota` | `AlumnoNotaServiceTest.modificarNotaConValorNuloConservaElValor` | ✅ |
-| HU-17 Eliminar nota | CA-HU17-1 a 2 | 5.0 | D5 | `AlumnoNotaServiceImpl.eliminarNota` | `AlumnoNotaServiceTest.eliminarNota` | ✅ |
+| HU-10 Registrar asistencia | CA-HU10-1 a 3 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.registrarAsistencia`, `AsistenciaAlumno` | `AlumnoAsistenciaServiceTest.registrarAsistenciaValida`, `AsistenciaTest` (modelo) | ⚠️ |
+| HU-11 Listar/buscar asistencias | CA-HU11-1 a 3 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.buscarAsistencias`, `AsistenciaRepository.buscarPorCriterio` | `AlumnoAsistenciaServiceTest.buscarAsistenciasPorDocumentoYPorId` | ⚠️ |
+| HU-12 Modificar asistencia | CA-HU12-1 a 4 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.modificarAsistencia` | `AlumnoAsistenciaServiceTest.modificarAsistenciaActualizaLosDatos`, `AsistenciaTest` (fecha futura) | ⚠️ |
+| HU-13 Eliminar asistencia | CA-HU13-1 a 2 | 3.0 | D3 | `AlumnoAsistenciaServiceImpl.eliminarAsistencia` | `AlumnoAsistenciaServiceTest.eliminarAsistenciaExistenteEInexistente` | ⚠️ |
+| HU-14 Registrar nota | CA-HU14-1 a 4 | 5.0 | D2, D4, D5 | `AlumnoNotaServiceImpl.registrarNota`, `AlumnoInscripto.agregarNota`, `NotaView.registrarNota` | `AlumnoNotaServiceTest` | ⚠️ |
+| HU-15 Listar/buscar notas | CA-HU15-1 a 4 | 5.0 | D5 | `AlumnoNotaServiceImpl.buscarNotas`, `NotaRepository.buscarPorId` | `AlumnoNotaServiceTest.buscarNotaPorIdYPorNombreDeExamen` | ⚠️ |
+| HU-16 Modificar nota | CA-HU16-1 a 4 | 5.0 | D5 | `AlumnoNotaServiceImpl.modificarNota` | `AlumnoNotaServiceTest.modificarNotaConValorNuloConservaElValor` | ⚠️ |
+| HU-17 Eliminar nota | CA-HU17-1 a 2 | 5.0 | D5 | `AlumnoNotaServiceImpl.eliminarNota` | `AlumnoNotaServiceTest.eliminarNota` | ⚠️ |
 | HU-18 Ver carreras | CA-HU18-1 | 6.0 | D8 | `ConsultasController.listarCarreras`, `CarreraServiceImpl` | `CarreraServiceTest`, `CarreraTest` (modelo) | ✅ |
 | HU-19 Ver materias | CA-HU19-1 | 6.0 | D7, D9 | `ConsultasController.listarMaterias`, `MateriaServiceImpl` | `MateriaServiceTest` | ✅ |
 | HU-20 Ver profesores | CA-HU20-1 | 6.0 | D10 | `ConsultasController.listarProfesores`, `ProfesorConsultaServiceImpl` | `ProfesorConsultaServiceTest` | ✅ |
@@ -37,6 +37,19 @@ Relacionar cada historia de usuario con sus criterios de aceptación, el proceso
 | HU-27 Correlatividades | Propuestos | — | — | — | — | 📋 |
 | HU-28 Consultar situación | Propuestos | 7.0 | D1, D2, D3, D5 | — | — | 📋 |
 | HU-29 Constancia regular | Propuestos | 7.0 | D2, D5 | — | — | 📋 |
+
+### 2.1 Historias con limitación
+
+| HU | Qué falta |
+|---|---|
+| HU-10 | La asistencia se guarda como `AsistenciaAlumno` y no se agrega a `AlumnoInscripto.asistencias`; el porcentaje de asistencia de la inscripción no se actualiza. |
+| HU-11 | Los listados y búsquedas leen solo `AsistenciaRepository`; no reflejan `AlumnoInscripto.asistencias`. |
+| HU-12 | La modificación afecta solo `AsistenciaAlumno`; `AlumnoInscripto.asistencias` queda desincronizada. |
+| HU-13 | La baja elimina solo de `AsistenciaRepository`; no hay sincronización con `AlumnoInscripto`. |
+| HU-14 | `Nota` no guarda referencia al alumno; la relación solo existe en `AlumnoInscripto.notas`. |
+| HU-15 | El listado no puede mostrar a quién pertenece cada nota; `NotaRepository` no reconstruye la relación desde `AlumnoInscripto`. |
+| HU-16 | La corrección es por ID y no permite identificar al alumno de la nota. |
+| HU-17 | La baja elimina de `NotaRepository` pero deja la referencia en `AlumnoInscripto.notas`. |
 
 ## 3. Cobertura de pruebas
 

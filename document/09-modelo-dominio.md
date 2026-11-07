@@ -201,6 +201,8 @@ classDiagram
 
 7. **Operaciones por comisión no implementadas en `ComisionRepository`:** el repositorio solo lista, busca y guarda comisiones. Métodos como `guardarAlumnoEnComision`, `listarAlumnosDeComision` o `buscarAlumnoInscriptoEnComision` quedaron como TODO en el trabajo parcial de referencia (`wip/refactor-parcial`) y **no se incorporaron** a esta rama. La inscripción y su consulta se resuelven en `AlumnoRepository` (lista de inscripciones) a través de `AlumnoServiceImpl`. Se documenta como limitación de diseño: la responsabilidad de las inscripciones no está en `ComisionRepository`.
 
+> **Limitaciones del MVP:** el detalle completo está en [00 — Alcance § Limitaciones conocidas del MVP](00-alcance.md#8-limitaciones-conocidas-del-mvp).
+
 ## 5. Diagramas relacionados
 
 - [DFD 0](05-dfd-0-contexto.md)

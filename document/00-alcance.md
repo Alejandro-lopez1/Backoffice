@@ -75,7 +75,19 @@ El sistema está orientado a un uso administrativo interno: una persona opera el
 - Las consultas muestran la estructura académica precargada.
 - Los 170 casos automatizados pasan.
 
-## 8. Documentos relacionados
+## 8. Limitaciones conocidas del MVP
+
+Estas limitaciones están verificadas contra el código actual y describen cómo funciona hoy el sistema.
+
+1. **`Nota` no guarda referencia al alumno.** La nota se vincula al alumno solo a través de `AlumnoInscripto.agregarNota`, y esa lista no se reconstruye desde `NotaRepository`. Por eso el listado de notas no puede mostrar a quién pertenece cada una.
+2. **Dos modelos de asistencia no sincronizados.** `Asistencia` (usada dentro de `AlumnoInscripto`) y `AsistenciaAlumno` (la que persiste `AsistenciaRepository`) representan el mismo concepto, pero registrar una no actualiza la otra.
+3. **`ComisionRepository` no tiene operaciones de inscripción por comisión.** La inscripción y su consulta viven en `AlumnoRepository` y `AlumnoServiceImpl`; `ComisionRepository` solo lista, busca y guarda comisiones.
+4. **`EstadoCursada` no se usa.** No hay cálculo de estado de cursada ni de promedio. `AlumnoInscripto` expone `calcularPorcentajeAsistencia()` y `esRegular(double)`, pero ningún servicio ni el menú los invocan.
+5. **Persistencia solo en memoria.** Los repositorios usan `ArrayList`; los datos se pierden al cerrar la aplicación.
+6. **Validaciones de vistas sin pruebas automatizadas.** Las validaciones de entrada de `AlumnoView`, `ExamenView`, `AsistenciaView` y `NotaView` se verificaron manualmente en consola.
+7. **Sin autenticación, roles ni portal de alumnos.** Hay un único menú para todos los actores; no hay login ni permisos.
+
+## 9. Documentos relacionados
 
 - [Historias de usuario](03-historias-usuario.md)
 - [DFD 0](05-dfd-0-contexto.md) y [DFD 1](06-dfd-1-sistema.md)
