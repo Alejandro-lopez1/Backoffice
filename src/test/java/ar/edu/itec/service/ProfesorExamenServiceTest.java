@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExamenServiceTest {
+class ProfesorExamenServiceTest {
 
     private ProfesorExamenServiceImpl service;
     private ComisionMateria comision;
@@ -68,6 +68,21 @@ class ExamenServiceTest {
         assertEquals("Recuperatorio 1", modificado.getNombre());
         assertEquals(TipoEvaluacion.RECUPERATORIO, modificado.getTipoEvaluacion());
         assertEquals(LocalDate.of(2026, 11, 22), modificado.getFecha());
+    }
+
+    @Test
+    void obtenerExamenPorIdInexistenteLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () -> service.obtenerExamenPorId(999L));
+    }
+
+    @Test
+    void buscarPorComisionDevuelveSoloLosExamenesDeEsaComision() {
+        service.registrarExamen(comision, "Parcial 1", "Unidades 1 a 3",
+                LocalDate.of(2026, 11, 15), TipoEvaluacion.PARCIAL);
+        ComisionMateria otraComision = new ComisionMateria("COM-002", new Materia("Programación II"), null, null);
+
+        assertEquals(1, service.buscarPorComision(comision).size());
+        assertTrue(service.buscarPorComision(otraComision).isEmpty());
     }
 
     @Test

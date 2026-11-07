@@ -110,15 +110,15 @@ El balanceo se cumple: no aparecen ni desaparecen flujos entre niveles.
 |---|---|---|---|
 | 1.0 | `AlumnoController` | `AlumnoService` | `AlumnoRepository` |
 | 2.0 | `AlumnoController` | `AlumnoService` | `AlumnoRepository`, `ComisionRepository`, `PlanEstudioRepository` |
-| 3.0 | `AsistenciaController` | `AsistenciaService` | `AsistenciaRepository` |
-| 4.0 | `ExamenController` | `ExamenService` | `ExamenRepository` |
-| 5.0 | `NotaController` | `NotaService` | `NotaRepository` |
-| 6.0 | — (vistas de consulta) | — | `CarreraRepository`, `MateriaRepository`, `ProfesorRepository`, `PlanEstudioRepository`, `ComisionRepository`, `AlumnoRepository` |
+| 3.0 | `AsistenciaController` | `AlumnoAsistenciaService` | `AsistenciaRepository` |
+| 4.0 | `ExamenController` | `ProfesorExamenService` | `ExamenRepository` |
+| 5.0 | `NotaController` | `AlumnoNotaService` | `NotaRepository` |
+| 6.0 | `ConsultasController` | `CarreraService`, `MateriaService`, `ProfesorConsultaService`, `PlanEstudioService`, `ComisionService`, `AlumnoService` | `CarreraRepository`, `MateriaRepository`, `ProfesorRepository`, `PlanEstudioRepository`, `ComisionRepository`, `AlumnoRepository` |
 | 7.0 | — | — | — (planificado) |
 
 ## 9. Observaciones de análisis
 
-1. **2.0 lee la comisión real**: el controlador resuelve la comisión con `ComisionRepository.buscarPorCodigo`, de modo que la inscripción en D2 conserva profesor, cuatrimestre y horarios de D6.
+1. **2.0 lee la comisión real**: `AlumnoServiceImpl` resuelve la comisión con `ComisionRepository.buscarPorCodigo`, de modo que la inscripción en D2 conserva profesor, cuatrimestre y horarios de D6.
 2. **5.0 no registra el alumno en D5**: la nota se guarda con el examen, pero la relación con el alumno queda solo en D2 (`AlumnoInscripto`). Esto impide reconstruir la nota por alumno al listar.
 3. **4.0 registra la descripción**: la vista solicita ese dato y lo envía al servicio; F09 se completa y D4 se escribe desde el menú, lo que habilita la selección de examen en 5.0.
 4. **7.0** es el único proceso planificado; se incluye para reflejar el actor E3 y la HU-28.

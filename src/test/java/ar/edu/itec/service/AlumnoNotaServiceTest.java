@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NotaServiceTest {
+class AlumnoNotaServiceTest {
 
     private AlumnoNotaServiceImpl service;
     private AlumnoInscripto inscripto;
@@ -72,6 +72,20 @@ class NotaServiceTest {
         assertEquals(1, service.buscarNotas(String.valueOf(nota.getId())).size());
         assertEquals(1, service.buscarNotas("Parcial").size());
         assertTrue(service.buscarNotas("Final").isEmpty());
+    }
+
+    @Test
+    void obtenerNotaPorIdInexistenteLanzaExcepcion() {
+        assertThrows(IllegalArgumentException.class, () -> service.obtenerNotaPorId(999L));
+    }
+
+    @Test
+    void modificarNotaFueraDeRangoLanzaExcepcion() {
+        Nota nota = service.registrarNota(inscripto, examen, 6.0, "Original");
+
+        assertThrows(IllegalArgumentException.class, () -> service.modificarNota(nota.getId(), 0.0, null));
+        assertThrows(IllegalArgumentException.class, () -> service.modificarNota(nota.getId(), 11.0, null));
+        assertEquals(6.0, service.obtenerNotaPorId(nota.getId()).getValor());
     }
 
     @Test

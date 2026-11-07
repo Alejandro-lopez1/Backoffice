@@ -71,4 +71,15 @@ class AlumnoControllerTest {
 
         assertTrue(controller.buscarAlumno("50000001").isEmpty());
     }
+
+    @Test
+    void listarAlumnosIncluyeElAlumnoRegistrado() {
+        assertTrue(controller.listarAlumnos().stream()
+                .anyMatch(alumno -> alumno.getDni().equals("50000001")));
+    }
+
+    @Test
+    void listarComisionesDisponiblesDelegaEnElServicio() {
+        assertFalse(controller.listarComisionesDisponibles().isEmpty());
+    }
 }

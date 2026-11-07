@@ -103,7 +103,7 @@ java -cp target\classes Main
 mvn test
 ```
 
-Se ejecutan 120 casos de JUnit 5.
+Se ejecutan 170 casos de JUnit 5.
 
 ### Codificación de la consola
 

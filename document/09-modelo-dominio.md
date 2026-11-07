@@ -191,13 +191,15 @@ classDiagram
 
 2. **Nota sin alumno:** `Nota` referencia al examen, no al alumno. La relación con el alumno solo existe en la lista `notas` de `AlumnoInscripto`, que no se reconstruye desde `NotaRepository`.
 
-3. **Inscripción con comisión real:** `AlumnoController` resuelve la comisión con `ComisionRepository.buscarPorCodigo`, por lo que la inscripción conserva horarios, profesor y cuatrimestre.
+3. **Inscripción con comisión real:** `AlumnoServiceImpl` resuelve la comisión con `ComisionRepository.buscarPorCodigo`, por lo que la inscripción conserva horarios, profesor y cuatrimestre.
 
 4. **`EstadoCursada` sin uso:** el enum está definido, pero ningún servicio calcula el estado.
 
 5. **Igualdad por claves:** `Alumno` por DNI, `ComisionMateria` por código, `Carrera` por código, `Materia` por nombre, `PlanEstudio` por carrera + año.
 
 6. **Validación de descripción del examen:** `Examen` exige una `descripcion` no vacía (RN-13); la vista la solicita y la envía al servicio.
+
+7. **Operaciones por comisión no implementadas en `ComisionRepository`:** el repositorio solo lista, busca y guarda comisiones. Métodos como `guardarAlumnoEnComision`, `listarAlumnosDeComision` o `buscarAlumnoInscriptoEnComision` quedaron como TODO en el trabajo parcial de referencia (`wip/refactor-parcial`) y **no se incorporaron** a esta rama. La inscripción y su consulta se resuelven en `AlumnoRepository` (lista de inscripciones) a través de `AlumnoServiceImpl`. Se documenta como limitación de diseño: la responsabilidad de las inscripciones no está en `ComisionRepository`.
 
 ## 5. Diagramas relacionados
 

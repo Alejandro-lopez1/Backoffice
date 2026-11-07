@@ -90,7 +90,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-13, RN-15
 - **Datos:** carrera, materia, comisión, fecha (`dd-MM-yyyy`), título, descripción, tipo (`PARCIAL`, `RECUPERATORIO`, `FINAL`)
 - **Estado:** ✅
-- **Evidencia:** `ExamenView.registrarExamen`, `ExamenService.registrarExamen`, `ExamenRepository.guardar`, `ExamenServiceTest`
+- **Evidencia:** `ExamenView.registrarExamen`, `ProfesorExamenService.registrarExamen`, `ExamenRepository.guardar`, `ProfesorExamenServiceTest`
 - **Observaciones:**
   - La vista solicita título, descripción, fecha y tipo, y envía la descripción al servicio; el modelo exige que no sea vacía (RN-13).
   - El examen registrado muestra ID, comisión, materia, profesor, nombre, descripción, fecha y tipo.
@@ -102,7 +102,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-16, RN-17
 - **Datos:** criterio (ID o texto)
 - **Estado:** ✅
-- **Evidencia:** `ExamenService.listarExamenes`, `ExamenService.buscarExamenes`, `ExamenRepository.buscarPorCriterio`, `ExamenServiceTest`
+- **Evidencia:** `ProfesorExamenService.listarExamenes`, `ProfesorExamenService.buscarExamenes`, `ExamenRepository.buscarPorCriterio`, `ProfesorExamenServiceTest`
 
 ### HU-08 · Modificar examen
 - **Prioridad:** Should
@@ -111,7 +111,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-13, RN-18
 - **Datos:** ID y nuevos datos
 - **Estado:** ✅
-- **Evidencia:** `ExamenService.modificarExamen`, `ExamenView.modificarExamen`
+- **Evidencia:** `ProfesorExamenService.modificarExamen`, `ExamenView.modificarExamen`
 
 ### HU-09 · Eliminar examen
 - **Prioridad:** Should
@@ -120,7 +120,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-18
 - **Datos:** ID
 - **Estado:** ✅
-- **Evidencia:** `ExamenService.eliminarExamen`, `ExamenRepository.eliminar`
+- **Evidencia:** `ProfesorExamenService.eliminarExamen`, `ExamenRepository.eliminar`
 
 ---
 
@@ -133,7 +133,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-06, RN-07, RN-08
 - **Datos:** documento del alumno, presente (S/N)
 - **Estado:** ✅
-- **Evidencia:** `AsistenciaView.registrarAsistencia`, `AsistenciaService.registrarAsistencia`, `AsistenciaAlumno`
+- **Evidencia:** `AsistenciaView.registrarAsistencia`, `AlumnoAsistenciaService.registrarAsistencia`, `AsistenciaAlumno`
 
 ### HU-11 · Listar y buscar asistencias
 - **Prioridad:** Should
@@ -142,7 +142,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-16, RN-17
 - **Datos:** criterio
 - **Estado:** ✅
-- **Evidencia:** `AsistenciaService.buscarAsistencias`, `AsistenciaRepository.buscarPorCriterio`
+- **Evidencia:** `AlumnoAsistenciaService.buscarAsistencias`, `AsistenciaRepository.buscarPorCriterio`
 
 ### HU-12 · Modificar asistencia
 - **Prioridad:** Could
@@ -151,7 +151,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-06, RN-07, RN-08, RN-18
 - **Datos:** ID, documento, fecha, presente
 - **Estado:** ✅
-- **Evidencia:** `AsistenciaService.modificarAsistencia`, `AsistenciaView.modificarAsistencia`
+- **Evidencia:** `AlumnoAsistenciaService.modificarAsistencia`, `AsistenciaView.modificarAsistencia`
 
 ### HU-13 · Eliminar asistencia
 - **Prioridad:** Could
@@ -160,7 +160,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-18
 - **Datos:** ID
 - **Estado:** ✅
-- **Evidencia:** `AsistenciaService.eliminarAsistencia`, `AsistenciaRepository.eliminar`
+- **Evidencia:** `AlumnoAsistenciaService.eliminarAsistencia`, `AsistenciaRepository.eliminar`
 
 ---
 
@@ -173,7 +173,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-04, RN-05, RN-20
 - **Datos:** carrera, materia, comisión, alumno inscripto, examen, valor (1-10), observación (opcional)
 - **Estado:** ✅
-- **Evidencia:** `NotaView.registrarNota`, `NotaService.registrarNota`, `NotaRepository.guardar`, `AlumnoInscripto.agregarNota`, `NotaServiceTest`
+- **Evidencia:** `NotaView.registrarNota`, `AlumnoNotaService.registrarNota`, `NotaRepository.guardar`, `AlumnoInscripto.agregarNota`, `AlumnoNotaServiceTest`
 - **Observaciones:**
   - La vista permite elegir carrera, materia, comisión, alumno inscripto y examen; solo aparecen los alumnos inscriptos en la comisión elegida.
   - `Nota` guarda el examen, el valor, la observación y la fecha, pero **no guarda una referencia al alumno**. La relación con el alumno solo existe en la lista interna de `AlumnoInscripto`, por lo que al listar notas no se puede saber a qué alumno pertenecen.
@@ -185,7 +185,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-16, RN-17
 - **Datos:** criterio
 - **Estado:** ✅
-- **Evidencia:** `NotaService.buscarNotas`, `NotaRepository.buscarPorId`
+- **Evidencia:** `AlumnoNotaService.buscarNotas`, `NotaRepository.buscarPorId`
 
 ### HU-16 · Modificar nota
 - **Prioridad:** Could
@@ -194,7 +194,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-04, RN-18, RN-19
 - **Datos:** ID, nuevo valor (opcional), observación
 - **Estado:** ✅
-- **Evidencia:** `NotaService.modificarNota`, `NotaView.modificarNota`
+- **Evidencia:** `AlumnoNotaService.modificarNota`, `NotaView.modificarNota`
 
 ### HU-17 · Eliminar nota
 - **Prioridad:** Could
@@ -203,7 +203,7 @@ Los criterios de aceptación asociados están en [04 — Criterios de aceptació
 - **Reglas:** RN-18
 - **Datos:** ID
 - **Estado:** ✅
-- **Evidencia:** `NotaService.eliminarNota`, `NotaRepository.eliminar`
+- **Evidencia:** `AlumnoNotaService.eliminarNota`, `NotaRepository.eliminar`
 
 ---
 

@@ -43,7 +43,7 @@ También se puede ejecutar `Main` desde el IDE.
 mvn test
 ```
 
-Se ejecutan 120 casos de JUnit 5. No hay pruebas para el servicio de asistencia.
+Se ejecutan 170 casos de JUnit 5. Están cubiertos alumnos, inscripciones, exámenes, asistencias, notas y consultas.
 
 ### 1.4 Codificación de la consola
 
@@ -620,7 +620,7 @@ Las bajas de exámenes, asistencias y notas se ejecutan directamente al ingresar
 
 ### 11.6 Cobertura de pruebas incompleta
 
-Hay 120 casos. Existen pruebas para examen y nota; falta `AsistenciaServiceTest`.
+Hay 170 casos. Existen pruebas para alumnos, inscripciones, exámenes, asistencias, notas y consultas; las validaciones de entrada de las vistas siguen verificándose manualmente.
 
 ## 12. Preguntas frecuentes
 

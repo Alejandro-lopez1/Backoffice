@@ -15,7 +15,7 @@ El sistema está orientado a un uso administrativo interno: una persona opera el
 | Datos iniciales | Precargados en los repositorios (carreras, materias, profesores, comisiones, planes y 4 alumnos) |
 | Autenticación | No existe; un único menú para todos los roles |
 | Interfaz | Menús numerados por teclado |
-| Pruebas | JUnit 5 (`src/test/java`), 120 casos ejecutados en 14 clases |
+| Pruebas | JUnit 5 (`src/test/java`), 170 casos ejecutados en 21 clases |
 
 ## 3. Alcance funcional
 
@@ -73,7 +73,7 @@ El sistema está orientado a un uso administrativo interno: una persona opera el
 - No se permiten inscripciones duplicadas ni superposición horaria.
 - Las notas solo aceptan valores entre 1 y 10.
 - Las consultas muestran la estructura académica precargada.
-- Los 120 casos automatizados pasan.
+- Los 170 casos automatizados pasan.
 
 ## 8. Documentos relacionados
 
