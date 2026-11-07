@@ -1,8 +1,7 @@
-
-import ar.edu.itec.view.MenuView;
+import ar.edu.itec.config.AppConfig;
 
 public class Main {
     public static void main(String[] args) {
-        new MenuView().iniciar();
+        new AppConfig().construirMenuView().iniciar();
     }
 }
