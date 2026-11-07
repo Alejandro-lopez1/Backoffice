@@ -8,6 +8,7 @@ import ar.edu.itec.model.Examen;
 import ar.edu.itec.model.Materia;
 import ar.edu.itec.model.Nota;
 import ar.edu.itec.repository.NotaRepository;
+import ar.edu.itec.service.impl.AlumnoNotaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +19,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NotaServiceTest {
 
-    private NotaService service;
+    private AlumnoNotaServiceImpl service;
     private AlumnoInscripto inscripto;
     private Examen examen;
 
     @BeforeEach
     void setUp() {
-        service = new NotaService(new NotaRepository());
+        service = new AlumnoNotaServiceImpl(new NotaRepository());
         Alumno alumno = new Alumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
         ComisionMateria comision = new ComisionMateria(
                 "COM-001", new Materia("Programación I"), null, null);

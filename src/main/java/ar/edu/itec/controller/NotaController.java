@@ -3,15 +3,15 @@ package ar.edu.itec.controller;
 import ar.edu.itec.model.AlumnoInscripto;
 import ar.edu.itec.model.Examen;
 import ar.edu.itec.model.Nota;
-import ar.edu.itec.service.NotaService;
+import ar.edu.itec.service.AlumnoNotaService;
 
 import java.util.List;
 
 public class NotaController {
 
-    private final NotaService notaService;
+    private final AlumnoNotaService notaService;
 
-    public NotaController(NotaService notaService) {
+    public NotaController(AlumnoNotaService notaService) {
         this.notaService = notaService;
     }
 

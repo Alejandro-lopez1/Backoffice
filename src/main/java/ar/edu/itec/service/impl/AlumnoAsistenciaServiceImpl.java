@@ -1,19 +1,21 @@
-package ar.edu.itec.service;
+package ar.edu.itec.service.impl;
 
 import ar.edu.itec.model.AsistenciaAlumno;
 import ar.edu.itec.repository.AsistenciaRepository;
+import ar.edu.itec.service.AlumnoAsistenciaService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class AsistenciaService {
+public class AlumnoAsistenciaServiceImpl implements AlumnoAsistenciaService {
 
     private final AsistenciaRepository asistenciaRepository;
 
-    public AsistenciaService(AsistenciaRepository asistenciaRepository) {
+    public AlumnoAsistenciaServiceImpl(AsistenciaRepository asistenciaRepository) {
         this.asistenciaRepository = asistenciaRepository;
     }
 
+    @Override
     public AsistenciaAlumno registrarAsistencia(String documentoAlumno, boolean presente) {
         LocalDate fecha = LocalDate.now();
         validarDocumento(documentoAlumno);
@@ -24,19 +26,23 @@ public class AsistenciaService {
         return asistenciaRepository.guardar(new AsistenciaAlumno(documentoAlumno, fecha, presente));
     }
 
+    @Override
     public List<AsistenciaAlumno> listarAsistencias() {
         return asistenciaRepository.buscarTodos();
     }
 
+    @Override
     public List<AsistenciaAlumno> buscarAsistencias(String criterio) {
         return asistenciaRepository.buscarPorCriterio(criterio);
     }
 
+    @Override
     public AsistenciaAlumno obtenerAsistenciaPorId(Long id) {
         return asistenciaRepository.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("No existe una asistencia con id " + id));
     }
 
+    @Override
     public AsistenciaAlumno modificarAsistencia(Long id, String documentoAlumno, LocalDate fecha, boolean presente) {
         AsistenciaAlumno asistencia = obtenerAsistenciaPorId(id);
         validarDocumento(documentoAlumno);
@@ -53,6 +59,7 @@ public class AsistenciaService {
         return asistenciaRepository.actualizar(asistencia);
     }
 
+    @Override
     public void eliminarAsistencia(Long id) {
         if (!asistenciaRepository.eliminar(id)) {
             throw new IllegalArgumentException("No existe una asistencia con id " + id);

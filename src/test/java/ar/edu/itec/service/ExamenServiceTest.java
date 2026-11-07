@@ -5,6 +5,7 @@ import ar.edu.itec.model.ComisionMateria;
 import ar.edu.itec.model.Examen;
 import ar.edu.itec.model.Materia;
 import ar.edu.itec.repository.ExamenRepository;
+import ar.edu.itec.service.impl.ProfesorExamenServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExamenServiceTest {
 
-    private ExamenService service;
+    private ProfesorExamenServiceImpl service;
     private ComisionMateria comision;
 
     @BeforeEach
     void setUp() {
-        service = new ExamenService(new ExamenRepository());
+        service = new ProfesorExamenServiceImpl(new ExamenRepository());
         comision = new ComisionMateria("COM-001", new Materia("Programación I"), null, null);
     }
 

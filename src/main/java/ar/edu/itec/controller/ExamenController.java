@@ -3,16 +3,16 @@ package ar.edu.itec.controller;
 import ar.edu.itec.enums.TipoEvaluacion;
 import ar.edu.itec.model.ComisionMateria;
 import ar.edu.itec.model.Examen;
-import ar.edu.itec.service.ExamenService;
+import ar.edu.itec.service.ProfesorExamenService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ExamenController {
 
-    private final ExamenService examenService;
+    private final ProfesorExamenService examenService;
 
-    public ExamenController(ExamenService examenService) {
+    public ExamenController(ProfesorExamenService examenService) {
         this.examenService = examenService;
     }
 

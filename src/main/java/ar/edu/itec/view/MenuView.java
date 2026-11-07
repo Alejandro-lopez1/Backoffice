@@ -5,10 +5,10 @@ import ar.edu.itec.controller.AsistenciaController;
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.controller.NotaController;
 import ar.edu.itec.repository.*;
-import ar.edu.itec.service.AlumnoService;
-import ar.edu.itec.service.AsistenciaService;
-import ar.edu.itec.service.ExamenService;
-import ar.edu.itec.service.NotaService;
+import ar.edu.itec.service.impl.AlumnoServiceImpl;
+import ar.edu.itec.service.impl.AlumnoAsistenciaServiceImpl;
+import ar.edu.itec.service.impl.ProfesorExamenServiceImpl;
+import ar.edu.itec.service.impl.AlumnoNotaServiceImpl;
 
 import java.util.Scanner;
 
@@ -34,20 +34,20 @@ public class MenuView {
         ComisionRepository comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
         
         AlumnoRepository alumnoRepository = new AlumnoRepository();
-        AlumnoService alumnoService = new AlumnoService(alumnoRepository);
+        AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
         AlumnoController alumnoController = new AlumnoController(
                 alumnoService, alumnoRepository, carreraRepository, comisionRepository);
 
         ExamenRepository examenRepository = new ExamenRepository();
-        ExamenService examenService = new ExamenService(examenRepository);
+        ProfesorExamenServiceImpl examenService = new ProfesorExamenServiceImpl(examenRepository);
         ExamenController examenController = new ExamenController(examenService);
 
         AsistenciaRepository asistenciaRepository = new AsistenciaRepository();
-        AsistenciaService asistenciaService = new AsistenciaService(asistenciaRepository);
+        AlumnoAsistenciaServiceImpl asistenciaService = new AlumnoAsistenciaServiceImpl(asistenciaRepository);
         AsistenciaController asistenciaController = new AsistenciaController(asistenciaService);
 
         NotaRepository notaRepository = new NotaRepository();
-        NotaService notaService = new NotaService(notaRepository);
+        AlumnoNotaServiceImpl notaService = new AlumnoNotaServiceImpl(notaRepository);
         NotaController notaController = new NotaController(notaService);
 
         this.alumnoView = new AlumnoView(alumnoController, scanner);

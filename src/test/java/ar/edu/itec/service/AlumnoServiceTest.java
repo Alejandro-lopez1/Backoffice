@@ -2,6 +2,10 @@ package ar.edu.itec.service;
 
 import ar.edu.itec.model.*;
 import ar.edu.itec.repository.AlumnoRepository;
+import ar.edu.itec.repository.ComisionRepository;
+import ar.edu.itec.repository.MateriaRepository;
+import ar.edu.itec.repository.ProfesorRepository;
+import ar.edu.itec.service.impl.AlumnoServiceImpl;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +15,13 @@ import java.util.List;
 
 class AlumnoServiceTest {
 
-    private AlumnoService service;
+    private AlumnoServiceImpl service;
     private Alumno alumno;
 
     @BeforeEach
     void setUp() {
-        service = new AlumnoService(new AlumnoRepository());
+        service = new AlumnoServiceImpl(new AlumnoRepository(),
+                new ComisionRepository(new MateriaRepository(), new ProfesorRepository()));
         alumno = service.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 

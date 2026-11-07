@@ -7,7 +7,7 @@ import ar.edu.itec.repository.CarreraRepository;
 import ar.edu.itec.repository.ComisionRepository;
 import ar.edu.itec.repository.MateriaRepository;
 import ar.edu.itec.repository.ProfesorRepository;
-import ar.edu.itec.service.AlumnoService;
+import ar.edu.itec.service.impl.AlumnoServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ class AlumnoControllerTest {
         ProfesorRepository profesorRepository = new ProfesorRepository();
         comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
         alumnoRepository = new AlumnoRepository();
-        AlumnoService alumnoService = new AlumnoService(alumnoRepository);
+        AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
         controller = new AlumnoController(
                 alumnoService, alumnoRepository, carreraRepository, comisionRepository);
         controller.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
