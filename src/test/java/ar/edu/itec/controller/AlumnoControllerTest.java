@@ -3,11 +3,11 @@ package ar.edu.itec.controller;
 import ar.edu.itec.model.Alumno;
 import ar.edu.itec.model.AlumnoInscripto;
 import ar.edu.itec.repository.AlumnoRepository;
-import ar.edu.itec.repository.CarreraRepository;
 import ar.edu.itec.repository.ComisionRepository;
 import ar.edu.itec.repository.MateriaRepository;
 import ar.edu.itec.repository.ProfesorRepository;
 import ar.edu.itec.service.impl.AlumnoServiceImpl;
+import ar.edu.itec.service.impl.ComisionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +21,12 @@ class AlumnoControllerTest {
 
     @BeforeEach
     void setUp() {
-        CarreraRepository carreraRepository = new CarreraRepository();
         MateriaRepository materiaRepository = new MateriaRepository();
         ProfesorRepository profesorRepository = new ProfesorRepository();
         comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
         alumnoRepository = new AlumnoRepository();
         AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
-        controller = new AlumnoController(
-                alumnoService, alumnoRepository, carreraRepository, comisionRepository);
+        controller = new AlumnoController(alumnoService, new ComisionServiceImpl(comisionRepository));
         controller.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 

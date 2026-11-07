@@ -7,6 +7,7 @@ import ar.edu.itec.controller.NotaController;
 import ar.edu.itec.repository.*;
 import ar.edu.itec.service.impl.AlumnoServiceImpl;
 import ar.edu.itec.service.impl.AlumnoAsistenciaServiceImpl;
+import ar.edu.itec.service.impl.ComisionServiceImpl;
 import ar.edu.itec.service.impl.ProfesorExamenServiceImpl;
 import ar.edu.itec.service.impl.AlumnoNotaServiceImpl;
 
@@ -32,11 +33,11 @@ public class MenuView {
         // Repositorios con relaciones
         PlanEstudioRepository planEstudioRepository = new PlanEstudioRepository(carreraRepository, materiaRepository);
         ComisionRepository comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
+        ComisionServiceImpl comisionService = new ComisionServiceImpl(comisionRepository);
         
         AlumnoRepository alumnoRepository = new AlumnoRepository();
         AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
-        AlumnoController alumnoController = new AlumnoController(
-                alumnoService, alumnoRepository, carreraRepository, comisionRepository);
+        AlumnoController alumnoController = new AlumnoController(alumnoService, comisionService);
 
         ExamenRepository examenRepository = new ExamenRepository();
         ProfesorExamenServiceImpl examenService = new ProfesorExamenServiceImpl(examenRepository);
