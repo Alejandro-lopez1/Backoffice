@@ -13,6 +13,8 @@
 
 Leyenda: ✅ corregida · ⏳ pendiente/documentada.
 
+> Los nombres de la columna «Evidencia antes» son **históricos**: describen la base `dfa7640` y no existen en el código actual. Los nombres definitivos son los de la columna «Dónde se resolvió».
+
 | ID | Violación detectada en la base | Evidencia antes | Estado | Dónde se resolvió |
 |---|---|---|---|---|
 | V01 | Vistas importaban y usaban repositorios directamente. | `MenuView`, `ExamenView`, `NotaView`, `ConsultasView` con `import ar.edu.itec.repository.*`. | ✅ | Fase 4: las vistas solo usan controladores y modelos. |

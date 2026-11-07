@@ -8,7 +8,7 @@ El objetivo del proyecto es centralizar la administración académica, permitien
 
 La documentación funcional y de análisis (alcance, actores, reglas, 24 historias con implementación en código y 5 de backlog, criterios de aceptación, DFD 0 y DFD 1 en Gane-Sarson, diccionario de datos, trazabilidad, modelo de dominio y manual de uso) está en [`document/`](document/README.md).
 
-> El manual y la trazabilidad marcan las limitaciones reales del código: no hay persistencia, no hay autenticación y la nota no guarda una referencia directa al alumno.
+> El manual y la trazabilidad marcan las limitaciones reales del código: no hay persistencia, no hay autenticación y la nota no guarda una referencia directa al alumno. El detalle está en [Limitaciones conocidas del MVP](document/00-alcance.md#8-limitaciones-conocidas-del-mvp).
 
 ## Objetivos
 
@@ -103,7 +103,7 @@ java -cp target\classes Main
 mvn test
 ```
 
-Se ejecutan 170 casos de JUnit 5.
+Se ejecutan 170 casos de JUnit 5 en 21 clases de prueba.
 
 ### Codificación de la consola
 
@@ -163,9 +163,11 @@ El sistema se basa en las siguientes entidades principales:
 ```text
 src/
 ├── main/java/ar/edu/itec/
+│   ├── config/
 │   ├── model/
 │   ├── repository/
 │   ├── service/
+│   │   └── impl/
 │   ├── controller/
 │   ├── view/
 │   └── enums/
