@@ -2,28 +2,20 @@ package ar.edu.itec.controller;
 
 import ar.edu.itec.model.Alumno;
 import ar.edu.itec.model.AlumnoInscripto;
-import ar.edu.itec.model.Carrera;
 import ar.edu.itec.model.ComisionMateria;
-import ar.edu.itec.repository.CarreraRepository;
-import ar.edu.itec.repository.AlumnoRepository;
-import ar.edu.itec.repository.ComisionRepository;
 import ar.edu.itec.service.AlumnoService;
+import ar.edu.itec.service.ComisionService;
 
 import java.util.List;
 
 public class AlumnoController {
 
     private final AlumnoService alumnoService;
-    private final AlumnoRepository repository;
-    private final CarreraRepository carreraRepository;
-    private final ComisionRepository comisionRepository;
+    private final ComisionService comisionService;
 
-    public AlumnoController(AlumnoService alumnoService, AlumnoRepository repository,
-                            CarreraRepository carreraRepository, ComisionRepository comisionRepository) {
+    public AlumnoController(AlumnoService alumnoService, ComisionService comisionService) {
         this.alumnoService = alumnoService;
-        this.repository = repository;
-        this.carreraRepository = carreraRepository;
-        this.comisionRepository = comisionRepository;
+        this.comisionService = comisionService;
     }
 
     public Alumno registrarAlumno(String nombre, String apellido, String dni, String email, String telefono) {
@@ -35,23 +27,15 @@ public class AlumnoController {
     }
 
     public List<Alumno> listarAlumnos() {
-        return repository.buscarTodos();
-    }
-
-    public List<Carrera> listarCarrerasDisponibles() {
-        return carreraRepository.listarCarreras();
+        return alumnoService.listarAlumnos();
     }
 
     public List<ComisionMateria> listarComisionesDisponibles() {
-        return comisionRepository.listarComisiones();
+        return comisionService.listarComisiones();
     }
 
     public AlumnoInscripto inscribirAlumnoComision(String dni, String codigoComision) {
-        Alumno alumno = obtenerAlumno(dni);
-        ComisionMateria comision = comisionRepository.buscarPorCodigo(codigoComision)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "No existe la comisión con código " + codigoComision));
-        return alumnoService.inscribirAlumnoComision(alumno, comision);
+        return alumnoService.inscribirAlumnoComision(dni, codigoComision);
     }
 
     public List<AlumnoInscripto> obtenerComisionesDeAlumno(String dni) {

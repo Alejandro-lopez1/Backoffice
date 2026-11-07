@@ -28,6 +28,11 @@ La documentación describe el sistema **tal como está implementado en el códig
 | [08 — Trazabilidad](08-trazabilidad.md) | HU ↔ CA ↔ DFD ↔ código ↔ tests |
 | [09 — Modelo de dominio](09-modelo-dominio.md) | Diagrama UML de clases y relaciones |
 | [10 — Manual de uso](10-manual-uso.md) | Recorrido del menú consola y datos iniciales |
+| [11 — Arquitectura](11-arquitectura.md) | Diagrama de capas, dependencias y raíz de composición |
+| 📋 [12 — Diagrama de secuencia](12-diagrama-secuencia.md) | Interacción entre capas en los flujos principales (diagrama pendiente) |
+| 📋 [13 — Diagrama de estados](13-diagrama-estados.md) | Estados y transiciones del dominio (diagrama pendiente) |
+| 📋 [14 — Modelo de datos](14-modelo-datos.md) | Entidades, claves y relaciones de la persistencia en memoria (diagrama pendiente) |
+| [15 — Informe del refactor MVC](15-informe-refactor-mvc.md) | Auditoría de capas, violaciones V01–V20 y decisiones del refactor |
 
 ## Convenciones de identificación
 
@@ -44,7 +49,7 @@ La documentación describe el sistema **tal como está implementado en el códig
 
 ## Diagramas
 
-Los DFD están en `docs/diagramas/` en dos formatos:
+Los DFD están en `document/diagramas/` en dos formatos:
 
 - `dfd-0.svg` / `dfd-1.svg`: versión renderizada que se muestra en los documentos.
 - `dfd-0.drawio` / `dfd-1.drawio`: fuente editable para diagrams.net (draw.io).

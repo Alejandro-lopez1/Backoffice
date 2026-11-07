@@ -1,21 +1,23 @@
-package ar.edu.itec.service;
+package ar.edu.itec.service.impl;
 
 import ar.edu.itec.model.AlumnoInscripto;
 import ar.edu.itec.model.Examen;
 import ar.edu.itec.model.Nota;
 import ar.edu.itec.repository.NotaRepository;
+import ar.edu.itec.service.AlumnoNotaService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class NotaService {
+public class AlumnoNotaServiceImpl implements AlumnoNotaService {
 
     private final NotaRepository notaRepository;
 
-    public NotaService(NotaRepository notaRepository) {
+    public AlumnoNotaServiceImpl(NotaRepository notaRepository) {
         this.notaRepository = notaRepository;
     }
 
+    @Override
     public Nota registrarNota(AlumnoInscripto alumnoInscripto, Examen examen, Double valor, String observacion) {
         if (valor == null || valor < 1 || valor > 10) {
             throw new IllegalArgumentException("La nota debe ser un valor entre 1 y 10");
@@ -28,10 +30,12 @@ public class NotaService {
         return nota;
     }
 
+    @Override
     public List<Nota> listarNotas() {
         return notaRepository.buscarTodos();
     }
 
+    @Override
     public List<Nota> buscarNotas(String criterio) {
         if (criterio == null || criterio.isBlank()) {
             return listarNotas();
@@ -47,11 +51,13 @@ public class NotaService {
         }
     }
 
+    @Override
     public Nota obtenerNotaPorId(Long id) {
         return notaRepository.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("No existe una nota con id " + id));
     }
 
+    @Override
     public Nota modificarNota(Long id, Double valor, String observacion) {
         Nota nota = obtenerNotaPorId(id);
         if (valor != null) {
@@ -64,6 +70,7 @@ public class NotaService {
         return notaRepository.actualizar(nota);
     }
 
+    @Override
     public void eliminarNota(Long id) {
         if (!notaRepository.eliminar(id)) {
             throw new IllegalArgumentException("No existe una nota con id " + id);

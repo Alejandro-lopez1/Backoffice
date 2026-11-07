@@ -1,15 +1,5 @@
 package ar.edu.itec.view;
 
-import ar.edu.itec.controller.AlumnoController;
-import ar.edu.itec.controller.AsistenciaController;
-import ar.edu.itec.controller.ExamenController;
-import ar.edu.itec.controller.NotaController;
-import ar.edu.itec.repository.*;
-import ar.edu.itec.service.AlumnoService;
-import ar.edu.itec.service.AsistenciaService;
-import ar.edu.itec.service.ExamenService;
-import ar.edu.itec.service.NotaService;
-
 import java.util.Scanner;
 
 public class MenuView {
@@ -21,43 +11,14 @@ public class MenuView {
     private final ConsultasView consultasView;
     private final NotaView notaView;
 
-    public MenuView() {
-        this.scanner = new Scanner(System.in);
-
-        // Repositorios base
-        CarreraRepository carreraRepository = new CarreraRepository();
-        MateriaRepository materiaRepository = new MateriaRepository();
-        ProfesorRepository profesorRepository = new ProfesorRepository();
-        
-        // Repositorios con relaciones
-        PlanEstudioRepository planEstudioRepository = new PlanEstudioRepository(carreraRepository, materiaRepository);
-        ComisionRepository comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
-        
-        AlumnoRepository alumnoRepository = new AlumnoRepository();
-        AlumnoService alumnoService = new AlumnoService(alumnoRepository);
-        AlumnoController alumnoController = new AlumnoController(
-                alumnoService, alumnoRepository, carreraRepository, comisionRepository);
-
-        ExamenRepository examenRepository = new ExamenRepository();
-        ExamenService examenService = new ExamenService(examenRepository);
-        ExamenController examenController = new ExamenController(examenService);
-
-        AsistenciaRepository asistenciaRepository = new AsistenciaRepository();
-        AsistenciaService asistenciaService = new AsistenciaService(asistenciaRepository);
-        AsistenciaController asistenciaController = new AsistenciaController(asistenciaService);
-
-        NotaRepository notaRepository = new NotaRepository();
-        NotaService notaService = new NotaService(notaRepository);
-        NotaController notaController = new NotaController(notaService);
-
-        this.alumnoView = new AlumnoView(alumnoController, scanner);
-        this.examenView = new ExamenView(examenController, carreraRepository,
-                planEstudioRepository, comisionRepository, scanner);
-        this.asistenciaView = new AsistenciaView(asistenciaController, scanner);
-        this.consultasView = new ConsultasView(carreraRepository, materiaRepository, profesorRepository, 
-                                               planEstudioRepository, comisionRepository, alumnoRepository, scanner);
-        this.notaView = new NotaView(notaController, carreraRepository, planEstudioRepository,
-                comisionRepository, alumnoRepository, examenRepository, scanner);
+    public MenuView(AlumnoView alumnoView, ExamenView examenView, AsistenciaView asistenciaView,
+                    ConsultasView consultasView, NotaView notaView, Scanner scanner) {
+        this.alumnoView = alumnoView;
+        this.examenView = examenView;
+        this.asistenciaView = asistenciaView;
+        this.consultasView = consultasView;
+        this.notaView = notaView;
+        this.scanner = scanner;
     }
 
     public void iniciar() {

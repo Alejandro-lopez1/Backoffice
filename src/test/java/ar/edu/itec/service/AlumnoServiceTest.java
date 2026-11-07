@@ -2,6 +2,10 @@ package ar.edu.itec.service;
 
 import ar.edu.itec.model.*;
 import ar.edu.itec.repository.AlumnoRepository;
+import ar.edu.itec.repository.ComisionRepository;
+import ar.edu.itec.repository.MateriaRepository;
+import ar.edu.itec.repository.ProfesorRepository;
+import ar.edu.itec.service.impl.AlumnoServiceImpl;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +15,14 @@ import java.util.List;
 
 class AlumnoServiceTest {
 
-    private AlumnoService service;
+    private AlumnoServiceImpl service;
+    private ComisionRepository comisionRepository;
     private Alumno alumno;
 
     @BeforeEach
     void setUp() {
-        service = new AlumnoService(new AlumnoRepository());
+        comisionRepository = new ComisionRepository(new MateriaRepository(), new ProfesorRepository());
+        service = new AlumnoServiceImpl(new AlumnoRepository(), comisionRepository);
         alumno = service.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 
@@ -158,5 +164,46 @@ class AlumnoServiceTest {
     @Test
     void eliminarAlumnoInexistenteLanzaExcepcion() {
         assertThrows(IllegalArgumentException.class, () -> service.eliminarAlumno("99999999"));
+    }
+
+    @Test
+    void listarAlumnosIncluyeLosRegistrados() {
+        List<Alumno> alumnos = service.listarAlumnos();
+
+        assertTrue(alumnos.contains(alumno));
+        assertEquals(service.buscarAlumno("").size(), alumnos.size());
+    }
+
+    @Test
+    void inscribirAlumnoComisionPorDniYCodigo() {
+        AlumnoInscripto inscripcion = service.inscribirAlumnoComision("50000001", "Comisión-1");
+
+        assertNotNull(inscripcion);
+        assertEquals("Comisión-1", inscripcion.getComision().getCodigo());
+        assertEquals("50000001", inscripcion.getAlumno().getDni());
+    }
+
+    @Test
+    void inscribirAlumnoComisionConCodigoInexistenteLanzaExcepcion() {
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
+                service.inscribirAlumnoComision("50000001", "COM-999"));
+
+        assertTrue(error.getMessage().contains("No existe la comisión"));
+    }
+
+    @Test
+    void inscribirAlumnoComisionConDniInexistenteLanzaExcepcion() {
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
+                service.inscribirAlumnoComision("99999999", "Comisión-1"));
+
+        assertTrue(error.getMessage().contains("No se encontró alumno con DNI"));
+    }
+
+    @Test
+    void buscarInscripcionesPorComisionDevuelveLasInscripciones() {
+        ComisionMateria comision = comisionRepository.buscarPorCodigo("Comisión-1").orElseThrow();
+        service.inscribirAlumnoComision("50000001", "Comisión-1");
+
+        assertEquals(1, service.buscarInscripcionesPorComision(comision).size());
     }
 }

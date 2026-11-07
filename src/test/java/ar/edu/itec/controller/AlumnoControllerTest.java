@@ -3,11 +3,11 @@ package ar.edu.itec.controller;
 import ar.edu.itec.model.Alumno;
 import ar.edu.itec.model.AlumnoInscripto;
 import ar.edu.itec.repository.AlumnoRepository;
-import ar.edu.itec.repository.CarreraRepository;
 import ar.edu.itec.repository.ComisionRepository;
 import ar.edu.itec.repository.MateriaRepository;
 import ar.edu.itec.repository.ProfesorRepository;
-import ar.edu.itec.service.AlumnoService;
+import ar.edu.itec.service.impl.AlumnoServiceImpl;
+import ar.edu.itec.service.impl.ComisionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,14 +21,12 @@ class AlumnoControllerTest {
 
     @BeforeEach
     void setUp() {
-        CarreraRepository carreraRepository = new CarreraRepository();
         MateriaRepository materiaRepository = new MateriaRepository();
         ProfesorRepository profesorRepository = new ProfesorRepository();
         comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
         alumnoRepository = new AlumnoRepository();
-        AlumnoService alumnoService = new AlumnoService(alumnoRepository);
-        controller = new AlumnoController(
-                alumnoService, alumnoRepository, carreraRepository, comisionRepository);
+        AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
+        controller = new AlumnoController(alumnoService, new ComisionServiceImpl(comisionRepository));
         controller.registrarAlumno("Zoe", "Prueba", "50000001", "zoe@mail.com", "3764000001");
     }
 
@@ -72,5 +70,16 @@ class AlumnoControllerTest {
         controller.eliminarAlumno("50000001");
 
         assertTrue(controller.buscarAlumno("50000001").isEmpty());
+    }
+
+    @Test
+    void listarAlumnosIncluyeElAlumnoRegistrado() {
+        assertTrue(controller.listarAlumnos().stream()
+                .anyMatch(alumno -> alumno.getDni().equals("50000001")));
+    }
+
+    @Test
+    void listarComisionesDisponiblesDelegaEnElServicio() {
+        assertFalse(controller.listarComisionesDisponibles().isEmpty());
     }
 }

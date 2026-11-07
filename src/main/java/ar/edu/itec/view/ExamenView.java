@@ -1,9 +1,9 @@
 package ar.edu.itec.view;
 
+import ar.edu.itec.controller.ConsultasController;
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.enums.TipoEvaluacion;
 import ar.edu.itec.model.*;
-import ar.edu.itec.repository.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,18 +16,13 @@ public class ExamenView {
     private static final DateTimeFormatter FECHA_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final ExamenController examenController;
-    private final CarreraRepository carreraRepository;
-    private final PlanEstudioRepository planEstudioRepository;
-    private final ComisionRepository comisionRepository;
+    private final ConsultasController consultasController;
     private final Scanner scanner;
 
-    public ExamenView(ExamenController examenController, CarreraRepository carreraRepository,
-                      PlanEstudioRepository planEstudioRepository, ComisionRepository comisionRepository,
+    public ExamenView(ExamenController examenController, ConsultasController consultasController,
                       Scanner scanner) {
         this.examenController = examenController;
-        this.carreraRepository = carreraRepository;
-        this.planEstudioRepository = planEstudioRepository;
-        this.comisionRepository = comisionRepository;
+        this.consultasController = consultasController;
         this.scanner = scanner;
     }
 
@@ -206,7 +201,7 @@ public class ExamenView {
     }
 
     private Carrera seleccionarCarrera() {
-        List<Carrera> carreras = carreraRepository.listarCarreras();
+        List<Carrera> carreras = consultasController.listarCarreras();
         System.out.println("\n--- CARRERAS DISPONIBLES ---");
         for (Carrera c : carreras) {
             System.out.println("  " + c.getCodigo() + " - " + c.getNombre());
@@ -214,7 +209,7 @@ public class ExamenView {
         while (true) {
             System.out.print("Seleccione código de carrera: ");
             String codigo = scanner.nextLine().trim();
-            Carrera carrera = carreraRepository.buscarPorCodigo(codigo).orElse(null);
+            Carrera carrera = consultasController.buscarCarreraPorCodigo(codigo).orElse(null);
             if (carrera != null) {
                 return carrera;
             }
@@ -223,7 +218,7 @@ public class ExamenView {
     }
 
     private Materia seleccionarMateria(Carrera carrera) {
-        List<PlanEstudio> planes = planEstudioRepository.buscarPorCarrera(carrera.getCodigo());
+        List<PlanEstudio> planes = consultasController.buscarPlanesPorCarrera(carrera.getCodigo());
         if (planes.isEmpty()) {
             throw new IllegalArgumentException("La carrera " + carrera.getCodigo() + " no tiene materias cargadas.");
         }
@@ -242,7 +237,7 @@ public class ExamenView {
     }
 
     private ComisionMateria seleccionarComision(Materia materia) {
-        List<ComisionMateria> comisiones = comisionRepository.buscarPorMateria(materia.getNombre());
+        List<ComisionMateria> comisiones = consultasController.buscarComisionesPorMateria(materia.getNombre());
         if (comisiones.isEmpty()) {
             throw new IllegalArgumentException("No hay comisiones para la materia " + materia.getNombre());
         }

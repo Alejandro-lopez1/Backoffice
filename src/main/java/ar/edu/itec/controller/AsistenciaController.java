@@ -1,16 +1,16 @@
 package ar.edu.itec.controller;
 
 import ar.edu.itec.model.AsistenciaAlumno;
-import ar.edu.itec.service.AsistenciaService;
+import ar.edu.itec.service.AlumnoAsistenciaService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class AsistenciaController {
 
-    private final AsistenciaService asistenciaService;
+    private final AlumnoAsistenciaService asistenciaService;
 
-    public AsistenciaController(AsistenciaService asistenciaService) {
+    public AsistenciaController(AlumnoAsistenciaService asistenciaService) {
         this.asistenciaService = asistenciaService;
     }
 
