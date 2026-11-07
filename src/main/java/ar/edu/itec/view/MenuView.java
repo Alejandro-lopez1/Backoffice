@@ -2,14 +2,19 @@ package ar.edu.itec.view;
 
 import ar.edu.itec.controller.AlumnoController;
 import ar.edu.itec.controller.AsistenciaController;
+import ar.edu.itec.controller.ConsultasController;
 import ar.edu.itec.controller.ExamenController;
 import ar.edu.itec.controller.NotaController;
 import ar.edu.itec.repository.*;
 import ar.edu.itec.service.impl.AlumnoServiceImpl;
 import ar.edu.itec.service.impl.AlumnoAsistenciaServiceImpl;
-import ar.edu.itec.service.impl.ComisionServiceImpl;
-import ar.edu.itec.service.impl.ProfesorExamenServiceImpl;
 import ar.edu.itec.service.impl.AlumnoNotaServiceImpl;
+import ar.edu.itec.service.impl.CarreraServiceImpl;
+import ar.edu.itec.service.impl.ComisionServiceImpl;
+import ar.edu.itec.service.impl.MateriaServiceImpl;
+import ar.edu.itec.service.impl.PlanEstudioServiceImpl;
+import ar.edu.itec.service.impl.ProfesorConsultaServiceImpl;
+import ar.edu.itec.service.impl.ProfesorExamenServiceImpl;
 
 import java.util.Scanner;
 
@@ -33,8 +38,14 @@ public class MenuView {
         // Repositorios con relaciones
         PlanEstudioRepository planEstudioRepository = new PlanEstudioRepository(carreraRepository, materiaRepository);
         ComisionRepository comisionRepository = new ComisionRepository(materiaRepository, profesorRepository);
+
+        // Servicios de consulta
+        CarreraServiceImpl carreraService = new CarreraServiceImpl(carreraRepository);
+        MateriaServiceImpl materiaService = new MateriaServiceImpl(materiaRepository);
+        ProfesorConsultaServiceImpl profesorConsultaService = new ProfesorConsultaServiceImpl(profesorRepository);
+        PlanEstudioServiceImpl planEstudioService = new PlanEstudioServiceImpl(planEstudioRepository);
         ComisionServiceImpl comisionService = new ComisionServiceImpl(comisionRepository);
-        
+
         AlumnoRepository alumnoRepository = new AlumnoRepository();
         AlumnoServiceImpl alumnoService = new AlumnoServiceImpl(alumnoRepository, comisionRepository);
         AlumnoController alumnoController = new AlumnoController(alumnoService, comisionService);
@@ -51,14 +62,15 @@ public class MenuView {
         AlumnoNotaServiceImpl notaService = new AlumnoNotaServiceImpl(notaRepository);
         NotaController notaController = new NotaController(notaService);
 
+        ConsultasController consultasController = new ConsultasController(
+                carreraService, materiaService, profesorConsultaService, planEstudioService,
+                comisionService, alumnoService, examenService);
+
         this.alumnoView = new AlumnoView(alumnoController, scanner);
-        this.examenView = new ExamenView(examenController, carreraRepository,
-                planEstudioRepository, comisionRepository, scanner);
+        this.examenView = new ExamenView(examenController, consultasController, scanner);
         this.asistenciaView = new AsistenciaView(asistenciaController, scanner);
-        this.consultasView = new ConsultasView(carreraRepository, materiaRepository, profesorRepository, 
-                                               planEstudioRepository, comisionRepository, alumnoRepository, scanner);
-        this.notaView = new NotaView(notaController, carreraRepository, planEstudioRepository,
-                comisionRepository, alumnoRepository, examenRepository, scanner);
+        this.consultasView = new ConsultasView(consultasController, scanner);
+        this.notaView = new NotaView(notaController, consultasController, scanner);
     }
 
     public void iniciar() {

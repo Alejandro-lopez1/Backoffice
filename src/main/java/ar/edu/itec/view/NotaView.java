@@ -1,8 +1,8 @@
 package ar.edu.itec.view;
 
+import ar.edu.itec.controller.ConsultasController;
 import ar.edu.itec.controller.NotaController;
 import ar.edu.itec.model.*;
-import ar.edu.itec.repository.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,23 +13,13 @@ public class NotaView {
     private static final DateTimeFormatter FECHA_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final NotaController notaController;
-    private final CarreraRepository carreraRepository;
-    private final PlanEstudioRepository planEstudioRepository;
-    private final ComisionRepository comisionRepository;
-    private final AlumnoRepository alumnoRepository;
-    private final ExamenRepository examenRepository;
+    private final ConsultasController consultasController;
     private final Scanner scanner;
 
-    public NotaView(NotaController notaController, CarreraRepository carreraRepository,
-                    PlanEstudioRepository planEstudioRepository, ComisionRepository comisionRepository,
-                    AlumnoRepository alumnoRepository, ExamenRepository examenRepository,
+    public NotaView(NotaController notaController, ConsultasController consultasController,
                     Scanner scanner) {
         this.notaController = notaController;
-        this.carreraRepository = carreraRepository;
-        this.planEstudioRepository = planEstudioRepository;
-        this.comisionRepository = comisionRepository;
-        this.alumnoRepository = alumnoRepository;
-        this.examenRepository = examenRepository;
+        this.consultasController = consultasController;
         this.scanner = scanner;
     }
 
@@ -126,7 +116,7 @@ public class NotaView {
     // --- Selection helpers ---
 
     private Carrera seleccionarCarrera() {
-        List<Carrera> carreras = carreraRepository.listarCarreras();
+        List<Carrera> carreras = consultasController.listarCarreras();
         System.out.println("\n--- CARRERAS DISPONIBLES ---");
         for (Carrera c : carreras) {
             System.out.println("  " + c.getCodigo() + " - " + c.getNombre());
@@ -134,14 +124,14 @@ public class NotaView {
         while (true) {
             System.out.print("Seleccione código de carrera: ");
             String codigo = scanner.nextLine().trim();
-            Carrera carrera = carreraRepository.buscarPorCodigo(codigo).orElse(null);
+            Carrera carrera = consultasController.buscarCarreraPorCodigo(codigo).orElse(null);
             if (carrera != null) return carrera;
             System.out.println("Código inválido, intente nuevamente.");
         }
     }
 
     private Materia seleccionarMateria(Carrera carrera) {
-        List<PlanEstudio> planes = planEstudioRepository.buscarPorCarrera(carrera.getCodigo());
+        List<PlanEstudio> planes = consultasController.buscarPlanesPorCarrera(carrera.getCodigo());
         if (planes.isEmpty()) {
             throw new IllegalArgumentException("La carrera " + carrera.getCodigo() + " no tiene materias cargadas.");
         }
@@ -160,7 +150,7 @@ public class NotaView {
     }
 
     private ComisionMateria seleccionarComision(Materia materia) {
-        List<ComisionMateria> comisiones = comisionRepository.buscarPorMateria(materia.getNombre());
+        List<ComisionMateria> comisiones = consultasController.buscarComisionesPorMateria(materia.getNombre());
         if (comisiones.isEmpty()) {
             throw new IllegalArgumentException("No hay comisiones para la materia " + materia.getNombre());
         }
@@ -180,7 +170,7 @@ public class NotaView {
     }
 
     private AlumnoInscripto seleccionarAlumno(ComisionMateria comision) {
-        List<AlumnoInscripto> inscritos = alumnoRepository.buscarInscripcionesPorComision(comision);
+        List<AlumnoInscripto> inscritos = consultasController.listarInscripcionesPorComision(comision);
         if (inscritos.isEmpty()) {
             throw new IllegalArgumentException("No hay alumnos inscriptos en " + comision.getCodigo());
         }
@@ -199,7 +189,7 @@ public class NotaView {
     }
 
     private Examen seleccionarExamen(ComisionMateria comision) {
-        List<Examen> examenes = examenRepository.buscarPorComision(comision);
+        List<Examen> examenes = consultasController.listarExamenesPorComision(comision);
         if (examenes.isEmpty()) {
             throw new IllegalArgumentException("No hay exámenes registrados para " + comision.getCodigo());
         }

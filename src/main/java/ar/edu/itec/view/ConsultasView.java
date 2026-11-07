@@ -1,34 +1,18 @@
 package ar.edu.itec.view;
 
+import ar.edu.itec.controller.ConsultasController;
 import ar.edu.itec.model.*;
-import ar.edu.itec.repository.*;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsultasView {
 
-    private final CarreraRepository carreraRepository;
-    private final MateriaRepository materiaRepository;
-    private final ProfesorRepository profesorRepository;
-    private final PlanEstudioRepository planEstudioRepository;
-    private final ComisionRepository comisionRepository;
-    private final AlumnoRepository alumnoRepository;
+    private final ConsultasController consultasController;
     private final Scanner scanner;
 
-    public ConsultasView(CarreraRepository carreraRepository, 
-                        MateriaRepository materiaRepository,
-                        ProfesorRepository profesorRepository,
-                        PlanEstudioRepository planEstudioRepository,
-                        ComisionRepository comisionRepository,
-                        AlumnoRepository alumnoRepository,
-                        Scanner scanner) {
-        this.carreraRepository = carreraRepository;
-        this.materiaRepository = materiaRepository;
-        this.profesorRepository = profesorRepository;
-        this.planEstudioRepository = planEstudioRepository;
-        this.comisionRepository = comisionRepository;
-        this.alumnoRepository = alumnoRepository;
+    public ConsultasView(ConsultasController consultasController, Scanner scanner) {
+        this.consultasController = consultasController;
         this.scanner = scanner;
     }
 
@@ -66,7 +50,7 @@ public class ConsultasView {
 
     private void listarCarreras() {
         System.out.println("\n--- CARRERAS DISPONIBLES ---");
-        List<Carrera> carreras = carreraRepository.listarCarreras();
+        List<Carrera> carreras = consultasController.listarCarreras();
         for (Carrera carrera : carreras) {
             System.out.println(" - " + carrera.getCodigo() + ": " + carrera.getNombre());
         }
@@ -74,9 +58,9 @@ public class ConsultasView {
 
     private void listarMaterias() {
         System.out.println("\n--- MATERIAS DISPONIBLES ---");
-        List<Materia> materias = materiaRepository.listarMaterias();
-        List<PlanEstudio> planes = planEstudioRepository.listarPlanes();
-        List<ComisionMateria> comisiones = comisionRepository.listarComisiones();
+        List<Materia> materias = consultasController.listarMaterias();
+        List<PlanEstudio> planes = consultasController.listarPlanes();
+        List<ComisionMateria> comisiones = consultasController.listarComisiones();
         for (Materia materia : materias) {
             System.out.println(" - " + materia.getNombre());
 
@@ -112,8 +96,9 @@ public class ConsultasView {
 
     private void listarProfesores() {
         System.out.println("\n--- PROFESORES ---");
-        List<Profesor> profesores = profesorRepository.listarProfesores();
-        List<ComisionMateria> comisiones = comisionRepository.listarComisiones();
+        List<Profesor> profesores = consultasController.listarProfesores();
+        List<ComisionMateria> comisiones = consultasController.listarComisiones();
+        List<PlanEstudio> planes = consultasController.listarPlanes();
         for (Profesor profesor : profesores) {
             System.out.println(" - " + profesor.getNombreCompleto());
             System.out.println("   Email: " + profesor.getEmail());
@@ -129,7 +114,7 @@ public class ConsultasView {
                         .collect(java.util.stream.Collectors.joining(", "));
                 String carreras = comisionesProfe.stream()
                         .map(c -> c.getMateria())
-                        .flatMap(m -> planEstudioRepository.listarPlanes().stream()
+                        .flatMap(m -> planes.stream()
                                 .filter(p -> p.getMateria() != null && p.getMateria().equals(m)))
                         .map(p -> p.getCarrera().getCodigo())
                         .distinct()
@@ -147,7 +132,7 @@ public class ConsultasView {
         System.out.print("\nIngrese código de carrera: ");
         String codigo = scanner.nextLine().trim();
         
-        List<PlanEstudio> planes = planEstudioRepository.buscarPorCarrera(codigo);
+        List<PlanEstudio> planes = consultasController.buscarPlanesPorCarrera(codigo);
         if (planes.isEmpty()) {
             System.out.println("No se encontró plan de estudios para la carrera " + codigo);
             return;
@@ -166,7 +151,7 @@ public class ConsultasView {
 
     private void verComisiones() {
         System.out.println("\n--- COMISIONES DISPONIBLES ---");
-        List<ComisionMateria> comisiones = comisionRepository.listarComisiones();
+        List<ComisionMateria> comisiones = consultasController.listarComisiones();
         for (ComisionMateria comision : comisiones) {
             mostrarComision(comision);
         }
@@ -176,7 +161,7 @@ public class ConsultasView {
         System.out.print("\nIngrese apellido del profesor: ");
         String apellido = scanner.nextLine().trim();
         
-        List<ComisionMateria> comisiones = comisionRepository.buscarPorProfesor(apellido);
+        List<ComisionMateria> comisiones = consultasController.buscarComisionesPorProfesor(apellido);
         if (comisiones.isEmpty()) {
             System.out.println("No se encontraron comisiones para el profesor " + apellido);
             return;
@@ -190,7 +175,7 @@ public class ConsultasView {
 
     private void listarAlumnos() {
         System.out.println("\n--- ALUMNOS REGISTRADOS ---");
-        List<Alumno> alumnos = alumnoRepository.buscarTodos();
+        List<Alumno> alumnos = consultasController.listarAlumnos();
         for (Alumno alumno : alumnos) {
             System.out.println(" - " + alumno.getNombreCompleto());
             System.out.println("   DNI: " + alumno.getDni());
